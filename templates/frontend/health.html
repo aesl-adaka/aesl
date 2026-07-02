@@ -1,0 +1,62 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+
+<!-- Main content -->
+<section class="health__parallax">
+    <div class="projects__overlay"></div>
+</section>
+
+<section class="civic__caption">
+    <div>
+        <h1 class="projects__title">Health</h1>
+    </div>
+</section>
+
+<!-- Projects__cards -->
+
+{% include 'partial/projects-card.html' %}
+
+<!-- Projects Text -->
+<section class="projects__text">
+    <p>
+    Our Health projects aim to enhance patient care and well-being by creating healing environments. We deliver efficient and modern healthcare facilities, including hospitals, clinics, CHPS compounds and specialised medical centers. Mostly for our district health centers our designs have sought to integrate the lifestyle of the local community with modernity.
+    </p>
+    <hr />
+</section>
+
+<section class="civic__culture-gallery">
+    {% if health_images %} {% for image in health_images %}
+    <figure class="culture-card">
+        <img
+            src="{{ image.image.url }}"
+            alt="{{ image.alt_text|default:'Health related project image' }}"
+            loading="lazy"
+        />
+        <figcaption>
+            {{ image.alt_text|default:image.category|capfirst }}
+        </figcaption>
+    </figure>
+    {% endfor %} {% else %}
+    <div class="no-content">
+        <p>No images available in the Education category at the moment.</p>
+        <p>Check back later or explore other categories.</p>
+    </div>
+    {% endif %}
+</section>
+
+<!-- page location Section -->
+<section class="page__location">
+    <div class="page__flex">
+        <img
+            src="{% static 'img/aesl_logo.png' %}"
+            alt="aesl logo"
+            class="info__building-image-large"
+        />
+        <p>AESL || {{title}}</p>
+    </div>
+    <p>
+        Consulting Architects,<br />
+        Engineers and Surveyors
+    </p>
+</section>
+
+{% endblock content %}

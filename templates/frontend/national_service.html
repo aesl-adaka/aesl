@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<!-- Main content -->
+<section class="national_sernive--parallax">
+  <div class="projects__overlay"></div>
+</section>
+
+<section class="projects__caption">
+  <div>
+    <h1 class="projects__title">
+      Service Personnel
+    </h1>
+  </div>
+</section>
+
+<!-- Projects__cards -->
+{% include 'partial/people-card.html' %}
+
+
+<section id="ministy-work" class="sector">
+  <!-- Projects Text -->
+  <article class="grid__span">
+    <section class="sector__text">
+      <p>
+Architectural and Engineering Services Limited (AESL), a leading consulting firm established since 1973, plays a vital role in supporting National Service Personnel across Ghana. Through strategic partnerships with the National Service Scheme (NSS), AESL provides internship and placement opportunities where young graduates gain hands-on experience in architectural design, structural engineering, quantity surveying, project supervision, and site management. By designing and delivering modern office complexes, training centres, residential accommodations, and public infrastructure projects that house NSS personnel and other government workers, AESL contributes directly to creating functional, safe, and comfortable working environments. This collaboration not only equips National Service Personnel with practical professional skills and real-world exposure but also strengthens national development by building high-quality infrastructure that serves the public sector for years to come.
+      </p>
+    </section>
+
+
+  </article>
+
+  <aside class="sector__aside">
+    <div class="sector__links-wrapper">
+      <a href="{% url 'people' %}">Back to People</a>
+      <p>Consultants</p>
+      <div class="sector__links">
+        <a href="#ministy-work">AESL Consultants</a>
+        <a href="#sector">AESL Consultants List</a>
+      </div>
+    </div>
+    <div class="sector__navigation">
+      <p>Previous</p>
+      <a href="{% url 'services' %}">Senior Consultants</a>
+      <p>Next</p>
+      <a href="{% url 'services' %}">Senior Consultants</a>
+    </div>
+  </aside>
+</section>
+
+
+<!-- page location Section -->
+<section class="page__location">
+  <div class="page__flex">
+    <img src="{% static 'img/aesl_logo.png' %}" alt="aesl logo" class="info__building-image-large" />
+    <p>AESL || {{title}}</p>
+  </div>
+  <p>Consulting Architects,<br /> Engineers and Surveyors</p>
+</section>
+
+
+{% endblock content %}

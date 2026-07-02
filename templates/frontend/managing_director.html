@@ -1,0 +1,159 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+
+<!-- Main content -->
+<section class="board__chairman">
+    <div class="projects__overlay"></div>
+</section>
+
+<section class="projects__caption">
+    <div>
+        <h1 class="projects__title">Managing Director</h1>
+    </div>
+</section>
+
+<section id="ministy-work" class="sector">
+    <!-- Projects Text -->
+    <article class="grid__span">
+        <section class="director__details">
+            <div class="director__CV">
+                <h1>CV</h1>
+            </div>
+            <div class="director__text">
+                <p>
+                    " Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                    Ullam, error magnam. Impedit tempore earum debitis quae vero
+                    quo. Magnam, facere. Ea, explicabo blanditiis, unde veniam
+                    architecto fuga rem quas odit? "
+                </p>
+                <h5>
+                    <i><b>- Surv. Gordon Tanga (MD) -</b></i>
+                </h5>
+            </div>
+        </section>
+
+        <section id="dept-director" class="dept__heads-wrapper">
+            <div class="board__head">
+                <img src="{% static 'img/board-chairman/1.jpg' %}" alt="" />
+            </div>
+
+            <div class="board__head">
+                <img src="{% static 'img/board-chairman/2.jpg' %}" alt="" />
+            </div>
+        </section>
+        <section class="managing__director-history">
+            <p>
+                The achievement so far was against numerous odds and challenges
+                that the construction industry encountered during the recent
+                years .The weak growth in the global economy which significantly
+                affected the Ghanaian economy, resulted in the Government of
+                Ghana reducing expenditures, particularly in construction works
+                throughout the country.
+                <br />Nevertheless, number of initiatives were undertaken
+                including the Company’s strategic decision to adopt building
+                information modelling (BIM) for project delivery. This is not
+                only to improve staff skills but also to ensure quality service
+                delivery to our clients. <br />Our major projects for the year
+                including provision of administrative blocks and staff
+                accommodation for the Six New Regions, the Foundry and numerical
+                Tooling Centre, and the Renovation of Jubilee House and the
+                national sports stadia have all been handled with great client
+                satisfaction and continues to be landmark for the company.
+            </p>
+            <p>
+                The conditions of service for our staff are improved to ensure a
+                motivated staff. We want to maintain AESL‘s leadership in the
+                industry and ensure that it a place where people aspire to be to
+                help build places of enduring values.
+                <br />
+                They provide strategic direction and oversee the day-to-day
+                activities of the company, working closely with employees to
+                ensure projects are executed successfully, budgets and timelines
+                are adhered to, and client satisfaction is achieved.<br />
+                Our major projects for the year including provision of
+                administrative blocks and staff accommodation for the Six New
+                Regions, the Foundry and numerical Tooling Centre, and the
+                Renovation of Jubilee House and the national sports stadia have
+                all been handled with great client satisfaction and continues to
+                be landmark for the company.
+            </p>
+        </section>
+
+        <section class="more__projects padding">
+            <p>
+                AESL || Practice/Management/Managing Director's Title and Name
+            </p>
+            <article class="boxes">
+                <div class="box"></div>
+                <div class="box"></div>
+                <div class="box"></div>
+            </article>
+        </section>
+
+        <section class="alumni__board-wrapper">
+            <div>
+                <h1 class="projects__title">Board Chairman Alumni</h1>
+            </div>
+            <section id="dept-director" class="alumni__wrapper">
+                <div class="board__head">
+                    <img src="{% static 'img/alumni/1.jpg' %}" alt="" />
+                    <h3>ARC.-EBENEZER-LARYEA-AKITA</h3>
+                </div>
+                <div class="board__head">
+                    <img src="{% static 'img/alumni/2.jpg' %}" alt="" />
+                    <h3>ARC.ERNEST-BANNING</h3>
+                </div>
+                <div class="board__head">
+                    <img src="{% static 'img/alumni/3.jpg' %}" alt="" />
+                    <h3>ARC.-PROF.-JOHN-OWUSU-ADDO</h3>
+                </div>
+                <div class="board__head">
+                    <img src="{% static 'img/alumni/4.jpg' %}" alt="" />
+                    <h3>HON.-J.H-OWUSU-ACHEAMPONG</h3>
+                </div>
+                <div class="board__head">
+                    <img src="{% static 'img/alumni/5.jpg' %}" alt="" />
+                    <h3>SURV.-STEPHEN-KRAKUE</h3>
+                </div>
+                <div class="board__head">
+                    <img src="{% static 'img/alumni/6.jpg' %}" alt="" />
+                    <h3>ING.ARCH.-PATRICK-NII-ODOI-YEMOFIO</h3>
+                </div>
+            </section>
+        </section>
+    </article>
+
+    <aside class="sector__aside">
+        <div class="sector__links-wrapper">
+            <a href="{% url 'practice' %}">Back to Practice</a>
+            <p>Corporate Governance</p>
+            <div class="sector__links">
+                <a href="#ministy-work">Corporate Governance</a>
+                <a href="#alumni">Board Alumni</a>
+            </div>
+        </div>
+        <div class="sector__navigation">
+            <p>Previous</p>
+            <a href="{% url 'sector_ministry' %}">AESL sector Ministry</a>
+            <p>Next</p>
+            <a href="{% url 'management' %}">AESL Management</a>
+        </div>
+    </aside>
+</section>
+
+<!-- page location Section -->
+<section class="page__location">
+    <div class="page__flex">
+        <img
+            src="{% static 'img/aesl_logo.png' %}"
+            alt="aesl logo"
+            class="info__building-image-large"
+        />
+        <p>AESL || {{title}}</p>
+    </div>
+    <p>
+        Consulting Architects,<br />
+        Engineers and Surveyors
+    </p>
+</section>
+
+{% endblock content %}

@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<!-- Main content -->
+<section class="principal__parallax">
+  <div class="projects__overlay"></div>
+</section>
+
+<section class="projects__caption">
+  <div>
+    <h1 class="projects__title">
+      Professionals
+    </h1>
+  </div>
+</section>
+
+<!-- Projects__cards -->
+{% include 'partial/people-card.html' %}
+
+
+<section id="ministy-work" class="sector">
+  <!-- Projects Text -->
+  <article class="grid__span">
+    <section class="sector__text">
+      <p>
+        Our company boasts a team of highly skilled professionals dedicated to delivering exceptional design and engineering solutions. With expertise in various disciplines, including architecture, structural engineering,
+        and environmental planning, we tackle diverse project challenges. Their collaborative approach fosters
+        innovation, ensuring that each project meets the highest standards of quality and functionality. Committed to
+        professional development, these experts stay abreast of industry trends and advancements. Their focus on
+        sustainability and client satisfaction drives the creation of spaces that are not only beautiful but also environmentally responsible.
+      </p>
+    </section>
+
+
+    <section class="senior__consultants">
+        {% for professional in professionals %}
+        <div class="board-member-card">
+            <div class="board-member-header">
+                <div class="board-member-photo">
+                    <img
+                        src="{{ professional.profile_picture.url }}"
+                        alt="{{ professional.name }}"
+                        loading="lazy"
+                    />
+                </div>
+                <h3 class="board-member-name">{{ professional.name }}</h3>
+                <p class="board-member-title">
+                    {{ professional.profession }}
+                </p>
+                <p class="board-member-title">
+                    {{ professional.position }}
+                </p>
+                <p class="board-member-title">
+                    {{ professional.region }}
+                </p>
+            </div>
+        </div>
+        {% endfor %}
+    </section>
+
+  </article>
+
+  <aside class="sector__aside">
+    <div class="sector__links-wrapper">
+      <a href="{% url 'people' %}">Back to People</a>
+      <p>Consultants</p>
+      <div class="sector__links">
+        <a href="#ministy-work">AESL Consultants</a>
+        <a href="#sector">AESL Consultants List</a>
+      </div>
+    </div>
+    <div class="sector__navigation">
+      <p>Previous</p>
+      <a href="{% url 'services' %}">Senior Consultants</a>
+      <p>Next</p>
+      <a href="{% url 'services' %}">Senior Consultants</a>
+    </div>
+  </aside>
+</section>
+
+
+<!-- page location Section -->
+<section class="page__location">
+  <div class="page__flex">
+    <img src="{% static 'img/aesl_logo.png' %}" alt="aesl logo" class="info__building-image-large" />
+    <p>AESL || {{title}}</p>
+  </div>
+  <p>Consulting Architects,<br /> Engineers and Surveyors</p>
+</section>
+
+
+{% endblock content %}

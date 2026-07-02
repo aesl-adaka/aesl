@@ -1,0 +1,86 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+
+<!-- Main content -->
+<section class="sport__leisure-parallax">
+    <div class="projects__overlay"></div>
+</section>
+
+<section class="sport__caption">
+    <div>
+        <h1 class="sport__title">Sports and Leisure</h1>
+    </div>
+</section>
+
+<!-- Projects__cards -->
+
+{% include 'partial/projects-card.html' %}
+
+<!-- Projects Text -->
+<section class="projects__text">
+    <p>
+        Our Sports and Leisure projects provide world-class facilities for
+        recreation, fitness, and entertainment. From stadiums and arenas to
+        parks and gyms, we deliver spaces that encourage activity and
+        enjoyment.Our expertise on sport facilities have been uncommon and have
+        consulted on the Kumasi and Essipong stadia to bring them to
+        satisfactory standards.
+    </p>
+    <hr />
+</section>
+
+<section class="civic__culture-gallery">
+    {% if sport_images %}
+        {% for image in sport_images %}
+            <figure class="culture-card">
+                {% if image.related_project and image.related_project.slug %}
+                    <a href="{{ image.related_project.get_absolute_url }}" class="gallery-link">
+                        <img
+                            src="{{ image.image.url }}"
+                            alt="{{ image.alt_text|default:image.related_project.title|add:' project image' }}"
+                            loading="lazy"
+                        />
+                    </a>
+                {% else %}
+                    <img
+                        src="{{ image.image.url }}"
+                        alt="{{ image.alt_text|default:'industrial infrastructure related project image' }}"
+                        loading="lazy"
+                    />
+                {% endif %}
+
+                <figcaption>
+                    {% if image.related_project and image.related_project.slug %}
+                        <a href="{{ image.related_project.get_absolute_url }}" class="project-title-link">
+                            {{ image.related_project.title }}
+                        </a>
+                    {% else %}
+                        {{ image.alt_text|default:image.category|capfirst }}
+                    {% endif %}
+                </figcaption>
+            </figure>
+        {% endfor %}
+    {% else %}
+        <div class="no-content">
+            <p>No images available in the sports category at the moment.</p>
+            <p>Check back later or explore other categories.</p>
+        </div>
+    {% endif %}
+</section>
+
+<!-- page location Section -->
+<section class="page__location">
+    <div class="page__flex">
+        <img
+            src="{% static 'img/aesl_logo.png' %}"
+            alt="aesl logo"
+            class="info__building-image-large"
+        />
+        <p>AESL || {{title}}</p>
+    </div>
+    <p>
+        Consulting Architects,<br />
+        Engineers and Surveyors
+    </p>
+</section>
+
+{% endblock content %}

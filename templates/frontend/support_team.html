@@ -1,0 +1,91 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+
+<!-- Main content -->
+<section class="principal__parallax">
+    <div class="projects__overlay"></div>
+</section>
+
+<section class="projects__caption">
+    <div>
+        <h1 class="projects__title">Support Team</h1>
+    </div>
+</section>
+
+<!-- Projects__cards -->
+{% include 'partial/people-card.html' %}
+
+<section id="ministy-work" class="sector">
+    <!-- Projects Text -->
+    <article class="grid__span">
+        <section class="sector__text">
+            <p>
+                The support staff at Architectural and Engineering Services
+                Limited provides essential project management, technical
+                direction, and client communication support, guaranteeing
+                seamless operations and raising client satisfaction through
+                knowledgeable support and prompt outcomes.
+            </p>
+        </section>
+
+    <section class="senior__consultants">
+        {% for support_team in support_teams %}
+        <div class="board-member-card">
+            <div class="board-member-header">
+                <div class="board-member-photo">
+                    <img
+                        src="{{ support_team.profile_picture.url }}"
+                        alt="{{ support_team.name }}"
+                        loading="lazy"
+                    />
+                </div>
+                <h3 class="board-member-name">{{ support_team.name }}</h3>
+                <p class="board-member-title">
+                    {{ support_team.profession }}
+                </p>
+                <p class="board-member-title">
+                    {{ support_team.position }}
+                </p>
+                <p class="board-member-title">
+                    {{ support_team.region }}
+                </p>
+            </div>
+        </div>
+        {% endfor %}
+    </section>
+    </article>
+
+    <aside class="sector__aside">
+        <div class="sector__links-wrapper">
+            <a href="{% url 'people' %}">Back to People</a>
+            <p>Consultants</p>
+            <div class="sector__links">
+                <a href="#ministy-work">AESL Consultants</a>
+                <a href="#sector">AESL Consultants List</a>
+            </div>
+        </div>
+        <div class="sector__navigation">
+            <p>Previous</p>
+            <a href="{% url 'services' %}">Senior Consultants</a>
+            <p>Next</p>
+            <a href="{% url 'services' %}">Senior Consultants</a>
+        </div>
+    </aside>
+</section>
+
+<!-- page location Section -->
+<section class="page__location">
+    <div class="page__flex">
+        <img
+            src="{% static 'img/aesl_logo.png' %}"
+            alt="aesl logo"
+            class="info__building-image-large"
+        />
+        <p>AESL || {{title}}</p>
+    </div>
+    <p>
+        Consulting Architects,<br />
+        Engineers and Surveyors
+    </p>
+</section>
+
+{% endblock content %}

@@ -1,0 +1,98 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+
+<!-- Main content -->
+<section class="principal__parallax">
+    <div class="projects__overlay"></div>
+</section>
+
+<section class="projects__caption">
+    <div>
+        <h1 class="projects__title">Assistant Professionals</h1>
+    </div>
+</section>
+
+<!-- Projects__cards -->
+{% include 'partial/people-card.html' %}
+
+<section id="ministy-work" class="sector">
+    <!-- Projects Text -->
+    <article class="grid__span">
+        <section class="sector__text">
+            <p>
+                Assistant professionals at Architectural and Engineering
+                Services Limited play a crucial role in supporting project teams
+                and ensuring smooth operations. They assist in research,
+                drafting, and design processes, contributing to the development
+                of innovative solutions. With a focus on detail and accuracy,
+                they help prepare technical documentation and reports that meet
+                industry standards. Their proactive approach and strong
+                communication skills facilitate collaboration among team members
+                and clients. Committed to professional growth, they continuously
+                seek to enhance their knowledge and skills within the field.
+            </p>
+        </section>
+
+        <section class="senior__consultants">
+            {% for assistant_professional in assistant_professionals %}
+            {% if assistant_professional.profession == 'Assistant Professional' %}
+            <div class="board-member-card">
+                <div class="board-member-header">
+                    <div class="board-member-photo">
+                        <img
+                            src="{{ assistant_professional.profile_picture.url }}"
+                            alt="{{ assistant_professional.name }}"
+                            loading="lazy"
+                        />
+                    </div>
+                    <h3 class="board-member-name">{{ assistant_professional.name }}</h3>
+                    <p class="board-member-title">
+                        {{ assistant_professional.profession }}
+                    </p>
+                    <p class="board-member-title">
+                        {{ assistant_professional.position }}
+                    </p>
+                    <p class="board-member-title">
+                        {{ assistant_professional.region }}
+                    </p>
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </section>
+    </article>
+
+    <aside class="sector__aside">
+        <div class="sector__links-wrapper">
+            <a href="{% url 'people' %}">Back to People</a>
+            <p>Consultants</p>
+            <div class="sector__links">
+                <a href="#ministy-work">AESL Consultants</a>
+                <a href="#sector">AESL Consultants List</a>
+            </div>
+        </div>
+        <div class="sector__navigation">
+            <p>Previous</p>
+            <a href="{% url 'services' %}">Senior Consultants</a>
+            <p>Next</p>
+            <a href="{% url 'services' %}">Senior Consultants</a>
+        </div>
+    </aside>
+</section>
+
+<!-- page location Section -->
+<section class="page__location">
+    <div class="page__flex">
+        <img
+            src="{% static 'img/aesl_logo.png' %}"
+            alt="aesl logo"
+            class="info__building-image-large"
+        />
+        <p>AESL || {{title}}</p>
+    </div>
+    <p>
+        Consulting Architects,<br />
+        Engineers and Surveyors
+    </p>
+</section>
+
+{% endblock content %}

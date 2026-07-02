@@ -1,0 +1,130 @@
+{% load static %}
+<aside class="sidebar">
+  <div class="nav__barlogo">
+    <a href="{% url 'home' %}" class="sidebar__details">
+      <img
+        class="img__logo"
+        src="{% static 'img/aesl_logo.png' %}"
+        alt="aesl-logo"
+      />
+      <h4 class="company__name">A E S L</h4>
+      <h5 class="company__details">
+        Consulting Architects, <br />
+        Engineers and Surveyors
+      </h5>
+      <div class="company__date">
+        <div class="">
+          <div class="bars"></div>
+          <div class="bars"></div>
+        </div>
+        SINCE 1973
+        <div>
+          <div class="bars"></div>
+          <div class="bars"></div>
+        </div>
+      </div>
+    </a>
+  </div>
+
+  {% comment %}
+  navbar links section
+  {% endcomment %}
+  <div class="nav__links">
+  <input type="search" id="nav-toggle" placeholder="Search for People and Projects" class="search__input" />
+    <button class="search__btn">
+      <i class="fa fa-search"></i>
+    </button>
+  </div>
+
+   <nav class="nav__menu">
+     <a class="{% if request.resolver_match.url_name == 'projects' %}active__link{% endif %}" href="{% url 'projects' %}"><i class="fas fa-building"></i> Projects</a>
+     <a class="{% if request.resolver_match.url_name == 'practice' %}active__link{% endif %}" href="{% url 'practice' %}"><i class="fas fa-city"></i> Practice</a>
+     <a class="{% if request.resolver_match.url_name == 'principles' %}active__link{% endif %}" href="{% url 'principles' %}"><i class="fas fa-drafting-compass"></i> Principles</a>
+    <a class="{% if request.resolver_match.url_name == 'people' %}active__link{% endif %}" href="{% url 'people' %}"><i class="fas fa-users"></i> People</a>
+    <a class="{% if request.resolver_match.url_name == 'news' %}active__link{% endif %}" href="{% url 'news_list' %}"><i class="fas fa-newspaper"></i> News</a>
+    <a class="{% if request.resolver_match.url_name == 'publications' %}active__link{% endif %}" href="{% url 'publications' %}"><i class="fas fa-book-open"></i> Publications</a>
+    </nav>
+    <hr class="horizontal__line"/>
+
+    <div class="footer">
+      <div class="social__icons">
+        <a href="#"><i class="fab fa-facebook"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-linkedin"></i></a>
+        <a href="#"><i class="fab fa-youtube"></i></a>
+      </div>
+      <div class="legal">
+        <a href="#">Legal</a>
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Accessibility</a>
+      </div>
+    </div>
+</aside>
+
+<!-- Mobile navigation bar -->
+<nav class="mobile__nav">
+  <div class="mobile__navlogo">
+    <a href="{% url 'home' %}">
+      <img
+        class="mobileimg__logo"
+        src="{% static 'img/aesl_logo.png' %}"
+        alt="aesl-logo"
+      />
+    </a>
+  </div>
+    <button class="mobile__menubtn">
+      <i class="fa fa-bars"></i>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile menu overlay -->
+<div  class="mobile__menuoverlay">
+    <button id="closebtn" class="closebtn">&times;</button>
+    <a href="{% url 'home' %}" class="sidebar__details mobile__side">
+      <h4 class="company__name">A E S L</h4>
+      <h5 class="company__details">
+        Consulting Architects, <br />
+        Engineers and Surveyors
+      </h5>
+      <div class="company__date">
+        <div class="">
+          <div class="bars"></div>
+          <div class="bars"></div>
+        </div>
+        SINCE 1973
+        <div>
+          <div class="bars"></div>
+          <div class="bars"></div>
+        </div>
+      </div>
+  </a>
+
+     <nav class="nav__menu">
+         <a class="{% if request.resolver_match.url_name == 'projects' %}active__link{% endif %}" href="{% url 'projects' %}"><i class="fas fa-building"></i> Projects</a>
+         <a class="{% if request.resolver_match.url_name == 'practice' %}active__link{% endif %}" href="{% url 'practice' %}"><i class="fas fa-city"></i> Practice</a>
+         <a class="{% if request.resolver_match.url_name == 'principles' %}active__link{% endif %}" href="{% url 'principles' %}"><i class="fas fa-drafting-compass"></i> Principles</a>
+        <a class="{% if request.resolver_match.url_name == 'people' %}active__link{% endif %}" href="{% url 'people' %}"><i class="fas fa-users"></i> People</a>
+        <a href="#"><i class="fas fa-newspaper"></i> News</a>
+        <a class="{% if request.resolver_match.url_name == 'publications' %}active__link{% endif %}" href="{% url 'publications' %}"><i class="fas fa-book-open"></i> Publications</a>
+    </nav>
+    <hr class="horizontal__line"/>
+
+    <div class="footer">
+      <div class="social__icons">
+        <a href="#"><i class="fab fa-facebook"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-linkedin"></i></a>
+        <a href="#"><i class="fab fa-youtube"></i></a>
+      </div>
+      <div class="legal">
+        <a href="#">Legal</a>
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Accessibility</a>
+      </div>
+    </div>
+
+
+</div>

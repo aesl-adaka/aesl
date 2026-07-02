@@ -1,0 +1,207 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+
+<!-- Main content -->
+<section class="corporate__governance">
+    <div class="projects__overlay"></div>
+</section>
+
+<section class="projects__caption">
+    <div>
+        <h1 class="projects__title">Corporate Governance</h1>
+    </div>
+</section>
+
+<!-- Projects__cards -->
+{% include 'partial/card-nav.html' %}
+
+<section id="ministy-work" class="sector">
+    <!-- Projects Text -->
+    <article class="grid__span">
+        <section class="sector__text">
+            <p>
+                AESL's corporate governance upholds ethical standards and
+                promotes integrity and professionalism through a comprehensive
+                code of conduct and a well-structured Board of Directors.
+            </p>
+        </section>
+
+        <section class="corporate__images">
+            <img src="{% static 'img/bod-01.jpg' %}" alt="bod -1" />
+            <img src="{% static 'img/bod-02.jpeg' %}" alt="bod -1" />
+            <img src="{% static 'img/bod-03.jpeg' %}" alt="bod -1" />
+            <img src="{% static 'img/bod-04.jpeg' %}" alt="bod -1" />
+        </section>
+
+        <div class="sector__headline padding">
+            <p>Practice || Sector Ministry || Overview</p>
+        </div>
+
+        <div id="sector" class="sector__headline padding">
+            <h4>Board Chairman</h4>
+        </div>
+
+        <section class="board-card">
+            <!-- Left: Text Content -->
+            <div class="card-text">
+                <h2 class="board-name">ING. Kasser Ambrose Tee</h2>
+                <p class="board-title">Board Chairman</p>
+
+                <div class="board-description">
+                    <p class="truncate__multi">
+                        In 2019 your company operated in a domestic condition
+                        that witnessed a real GDP growth of 6.5% from 6.3% in
+                        2018. This was on the back of subdued inflation rate at
+                        the end of the year at 9.6% from the 9.4% during the
+                        year end 2018. This was a reflection of the tight
+                        monetary policy measures implemented during that year. A
+                        budget deficit of 4.8% of GDP amounting to GH¢ 3.69
+                        billion was recorded in 2019 (as revenue amounted to GH¢
+                        58.9 billion against an expenditure of GH¢ 41.6 billion
+                        in 2018). There was a deterioration in the trade balance
+                        with an overall balance of payments deficit on cash
+                        basis of GH¢15.7 billion representing 4.5% of GDP 2019.
+                        The Cedi eventually depreciated by 12.9% in 2019.
+                        Anxiety about the upcoming 2020 election led to a
+                        general “wait and see” attitude on the part of investors
+                        and businessmen, both local and foreign. The Election
+                        was viewed as a success by the International Community
+                        because it did not result in violence and civil strife.
+                        This was the economic environment in which your Company
+                        operated in 2019.
+                    </p>
+
+                    <!-- Buttons -->
+                    <div class="card-buttons">
+                        <a href="#" class="btn">LinkedIn</a>
+                        <a href="#" class="btn">Twitter</a>
+                        <a href="{% url 'board_chairman' %}" class="btn"
+                            >Read More</a
+                        >
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: Photo -->
+            <div class="card-photo">
+                <img
+                    src="{% static 'img/board-chairman.jpg'%}"
+                    alt="Kasser Ambrose Tee"
+                    loading="lazy"
+                />
+            </div>
+        </section>
+        <div class="sector__headline padding">
+            <p>Practice || Corporate Governance || Board Chairman</p>
+        </div>
+
+        <div id="sector" class="sector__headline padding">
+            <h4>Board Members</h4>
+        </div>
+
+        <!-- Board Member 1 -->
+        <section id="members" class="sector__board-wrapper">
+            {% for board_member in board_members %}
+            <div class="board-member-card">
+                <div class="board-member-header">
+                    <div class="board-member-photo">
+                        <img
+                            src="{{ board_member.image.url }}"
+                            alt="{{ board_member.name }}"
+                            loading="lazy"
+                        />
+                    </div>
+                    <h3 class="board-member-name">{{ board_member.name }}</h3>
+                    <p class="board-member-title">
+                        {{ board_member.position }}
+                    </p>
+                </div>
+
+                {% comment %}
+                <div class="board-member-body">
+                    <p class="board-member-about">
+                        {{ board_member.about|truncatewords:35|safe }}
+                    </p>
+                </div>
+                {% endcomment %}
+
+                <div class="board-member-footer">
+                    <div class="board-member-links">
+                        {% comment %} {% if board_member.linkedin %}
+                        <a
+                            href="{{ board_member.linkedin }}"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="link-btn"
+                        >
+                            LinkedIn
+                        </a>
+                        {% endif %} {% if board_member.twitter %}
+                        <a
+                            href="{{ board_member.twitter }}"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="link-btn"
+                        >
+                            Twitter
+                        </a>
+                        {% endif %} {% endcomment %}
+
+                        <a
+                            href="{% url 'board_member' board_member.pk %}"
+                            class="link-btn"
+                        >
+                            Profile
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <p>No board members listed at the moment.</p>
+            {% endfor %}
+        </section>
+
+        <div class="sector__headline padding">
+            <p>Practice || Corporate Governance || Board Members</p>
+        </div>
+    </article>
+
+    <aside class="sector__aside">
+        <div class="sector__links-wrapper">
+            <a href="{% url 'practice' %}">Back to Practice</a>
+            <p>Corporate Governance</p>
+            <div class="sector__links">
+                <a href="#ministy-work">Corporate Governance</a>
+                <a href="#sector">Board Chairman</a>
+                <a href="#members">Board Members</a>
+            </div>
+        </div>
+        <div class="sector__navigation">
+            <p>Previous</p>
+            <a href="{% url 'sector_ministry' %}">AESL sector Ministry</a>
+            <p>Next</p>
+            <a href="{% url 'management' %}">AESL Management</a>
+        </div>
+    </aside>
+</section>
+
+<!-- page location Section -->
+<section class="page__location">
+    <div class="page__flex">
+        <img
+            src="{% static 'img/aesl_logo.png' %}"
+            alt="aesl logo"
+            class="info__building-image-large"
+        />
+        <p>AESL || {{title}}</p>
+    </div>
+    <p>
+        Consulting Architects,<br />
+        Engineers and Surveyors
+    </p>
+</section>
+
+{% endblock content %}
+
+<!--class="link__button"
+href="{% url 'board_member' board_member.pk %}"
+>CV</a-->

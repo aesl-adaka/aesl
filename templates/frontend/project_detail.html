@@ -1,0 +1,380 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<!-- Main content -->
+{% if project.picture %}
+<section style="background-image: url('{{ project.picture.url }}')" class="projects__detail__parallax">
+    <div class="projects__detail__overlay"></div>
+    <div class="details__content">
+      <h4>{{project.title}}</h4>
+      <p><strong>Location:</strong> {{ project.location }}</p>
+    </div>
+
+  </section>
+{% endif %}
+
+<!--details card -->
+<section class="details__cards">
+  <div class="details__card">
+    <div class="details__card-head">
+      <p class="details__head">Project Coordinator</p>
+      <p class="details__body">{{ project.project_coordinator }}</p>
+    </div>
+    <div class="details__card-body">
+      <p class="details__head">Project Leads</p>
+        {% for leader in project.project_leaders.all %}
+          <p class="details__body">{{ leader.full_name }}</p>
+          {% if not forloop.last %}
+          {% endif %}
+        {% endfor %}
+    </div>
+  </div>
+
+  <div class="details__card">
+    <div class="details__card-head">
+      <p class="details__head">Client</p>
+      <p class="details__body">{{ project.client }}</p>
+    </div>
+    <div class="details__card-body">
+      <p class="details__head">Total Floor Area</p>
+      <p class="details__body">{{ project.total_floor_area }}</p>
+    </div>
+  </div>
+
+  <div class="details__card">
+    <div class="details__card-head">
+      <p class="details__head">Start Date</p>
+      <p class="details__body">{{ project.start_date|date:"F Y" }}</p>
+    </div>
+    <div class="details__card-body">
+      <p class="details__head">Completed Date</p>
+      {% if project.completed_date %}
+        {{ project.completed_date|date:"F Y" }}
+      {% else %}
+        <span class="details__body">Work in Progress</span>
+      {% endif %}
+    </div>
+  </div>
+
+    <div class="details__card">
+      <div class="details__card-head">
+        {% if project.job_sheets %}
+        <p class="details__head">Job Sheets</p>
+        <p class="details__body">{{ project.job_sheets }}</p>
+        {% endif %}
+      </div>
+      <div class="details__card-body">
+        <p class="details__head">Certificate</p>
+        {% if project.certificate %}
+          <p class="details__body">{{ project.certificate }}</p>
+        {% else %}
+          <p class="details__body"></p>
+        {% endif %}
+      </div>
+    </div>
+</section>
+
+<section class="details__wrapper">
+  <!-- project deail overview -->
+  <div class="wrapper__1">
+    <section id="overview" class="project__details-text">
+      <h2>Project Overview</h2>
+      <p>{{ project.little_text_details }}</p>
+    </section>
+
+
+    <!-- Project Gallery Details-->
+    {% if project_pictures %}
+    <section id="gallery" class="projects__details-gallery">
+      <h2>Project Gallery</h2>
+      <div class="civic__culture-gallery">
+        {% for img in project_pictures %}
+        <figure class="culture-card">
+          <img src="{{ img.image.url }}" alt="Project Image">
+        </figure>
+        {% empty %}
+        <p>No project pictures available.</p>
+        {% endfor %}
+      </div>
+    </section>
+    {% endif %}
+
+
+
+    <!-- Project Construction Details-->
+    {% if construction_pictures %}
+    <section id="construction" class="projects__construction-gallery">
+      <h2>Construction Pictures</h2>
+      <div class="civic__culture-gallery">
+        {% for img in construction_pictures %}
+        <figure class="culture-card">
+          <img src="{{ img.image.url }}" alt="Project Image">
+        </figure>
+        {% empty %}
+        <p>No project pictures available.</p>
+        {% endfor %}
+      </div>
+    </section>
+    {% endif %}
+
+
+    <!-- Project Construction Details-->
+    {% if project_3d_visualization_picture %}
+    <section id="construction" class="projects__construction-gallery">
+      <h2>Project 3D Visualizations</h2>
+      <div class="civic__culture-gallery">
+        {% for img in project_3d_visualization_picture %}
+        <figure class="culture-card">
+          <img src="{{ img.image.url }}" alt="Project Image">
+        </figure>
+        {% empty %}
+        <p>No project pictures available.</p>
+        {% endfor %}
+      </div>
+    </section>
+    {% endif %}
+
+
+      <!-- Project detail Data -->
+  <section id="data" class="projects__detail-data">
+    <h2>Project Data</h2>
+    <div class="projects__data">
+
+      <div class="data__grid-top">
+        <div style="border-radius:0px" class="details__card">
+          <div class="details__card-head">
+            <p class="details__head">Project Coordinator</p>
+            <p class="details__body">{{ project.project_coordinator }}</p>
+          </div>
+          <div class="details__card-body">
+            <p class="details__head">Project Leads</p>
+            {% for leader in project.project_leaders.all %}
+            <p class="details__body">{{ leader.full_name }}</p>
+            {% if not forloop.last %}
+            {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+
+        <div style="border-radius:0px" class="details__card">
+          <div class="details__card-head">
+            <p class="details__head">Project Coordinator</p>
+            <p class="details__body">{{ project.project_coordinator }}</p>
+          </div>
+          <div class="details__card-body">
+            <p class="details__head">Project Leads</p>
+            {% for leader in project.project_leaders.all %}
+            <p class="details__body">{{ leader.full_name }}</p>
+            {% if not forloop.last %}
+            {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+
+      <div class="projects__data-span">
+        <img src="{% static 'img/statlight.jpg' %}" />
+      </div>
+
+      <div style="border-radius:0px" class="details__card">
+        <div class="details__card-head">
+          {% if project.job_sheets %}
+          <p class="details__head">Job Sheets</p>
+          <p class="details__body">{{ project.job_sheets }}</p>
+          {% endif %}
+        </div>
+      </div>
+
+      <div style="border-radius:0px" class="details__card">
+        <div class="details__card-head">
+          <p class="details__head">Awards</p>
+        </div>
+        <div class="details__card-body">
+          {% for award in project.awards.all %}
+          <div class="awards__container">
+            <p class="details__body">{{ award.year }}</p>
+            <div class="award__detail">
+              <p class="details__body">Awards Name: {{ award.award_name}}</p>
+              {% if award.website %}
+              <a href="{{ award.website }}" target="_blank">{{ award.website }}</a>
+              {% endif %}
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div style="border-radius:0px" class="details__card">
+        <div class="details__card-head">
+          <p class="details__head">News Item</p>
+        </div>
+      </div>
+
+      <div style="border-radius:0px" class="details__card">
+        <div class="details__card-head">
+          <p class="details__head">Other Project Team Members</p>
+        </div>
+        <div class="details__card-body">
+          {% for member in project.other_team_members.all %}
+          <p class="details__body">{{ member.full_name }}</p>
+          {% empty %}
+          <p>No additional team members</p>
+          {% endfor %}
+        </div>
+      </div>
+
+
+
+      <div style="border-radius:0px" class="details__card">
+        <div class="details__card-head">
+          <p class="details__head">Start Date</p>
+          <p class="details__body">{{ project.start_date }}</p>
+          <p class="details__head">Completion Date</p>
+          <p class="details__body">{{ project.completed_date }}</p>
+          <p class="details__head">Location</p>
+          <p class="details__body">{{ project.location }}</p>
+          <p class="details__head">Client</p>
+          <p class="details__body">{{ project.client }}</p>
+          <p class="details__head">Gross Floor Area</p>
+          <p class="details__body">{{ project.total_floor_area }}</p>
+        </div>
+      </div>
+
+      <div style="border-radius:0px" class="details__card">
+        {% if project.contractors.exists %}
+        <div class="details__card-head">
+          {% for contractor in project.contractors.all %}
+          <p class="details__head">{{ contractor.role.name }}</p>
+          <p class="details__body">{{ contractor.company_name }}</p>
+          {% endfor %}
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </section>
+
+<section>
+  <div class="container my-5">
+      <h1 class="mb-4 font-black">Project Location</h1>
+
+          <div class="mb-4 mb-lg-0">
+              <div id="branch-map" style="height: 550px; border-radius: 12px; box-shadow: 0 6px 20px rgba(0,0,0,0.15);"></div>
+          </div>
+  </div>
+</section>
+
+<!-- Leaflet -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<!-- Font Awesome (for icons) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <script>
+const projectLocations = {{ project_locations_json|safe }};
+
+// Ghana bounds
+const ghanaStrictBounds = L.latLngBounds(
+    [4.74, -3.25],
+    [11.17, 0.99]
+);
+
+// Map
+const map = L.map('branch-map', {
+    scrollWheelZoom: false,
+    maxBounds: ghanaStrictBounds,
+    maxBoundsViscosity: 1.0,
+    minZoom: 6,
+    maxZoom: 18
+});
+
+L.tileLayer(
+    'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
+    {
+        attribution: '&copy; OpenStreetMap &copy; CARTO',
+        maxZoom: 20
+    }
+).addTo(map);
+
+// Red icon
+const projectIcon = L.icon({
+    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png',
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowSize: [41, 41]
+});
+
+// Add all project locations
+if (projectLocations.length > 0) {
+
+    const bounds = [];
+
+    projectLocations.forEach(loc => {
+        if (loc.lat && loc.lng) {
+
+            const marker = L.marker([loc.lat, loc.lng], {
+                icon: projectIcon
+            }).addTo(map);
+
+            marker.bindPopup(`
+                <strong>${loc.created_at}</strong><br>
+                Latitude: ${loc.lat}<br>
+                Longitude: ${loc.lng}
+            `);
+
+            bounds.push([loc.lat, loc.lng]);
+        }
+    });
+
+    if (bounds.length > 0) {
+        map.fitBounds(bounds);
+    }
+
+} else {
+    map.fitBounds(ghanaStrictBounds);
+
+    L.popup()
+        .setLatLng([7.9465, -1.0232])
+        .setContent("No project locations available.")
+        .openOn(map);
+}
+  </script>
+
+
+  <!-- page location Section -->
+  <section class="page__location">
+    <div class="page__flex">
+      <img src="{% static 'img/aesl_logo.png' %}" alt="aesl logo" class="info__building-image-large" />
+      <p>AESL || {{ title }} - {{ project.title }}</p>
+    </div>
+    <p>Consulting Architects,<br /> Engineers and Surveyors</p>
+  </section>
+
+  </div>
+
+
+  <aside class="wrapper_2">
+    <a href="{% url 'projects' %}">Back to Project</a>
+    <div class="wrapper__links">
+      <a href="#overview">Project Overview</a>
+      <a href="#gallery">Project Gallery</a>
+      {% comment %}
+      <a href="#concept">Project Concept</a>
+      {% endcomment %}
+      <a href="#design">Project Design</a>
+      <a href="#construction">Project Construction</a>
+      <a href="#data">Project Data</a>
+    </a>
+  </aside>
+</section>
+
+
+
+
+
+
+{% endblock content %}

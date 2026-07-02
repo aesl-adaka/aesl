@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<!-- Main content -->
+<section class="principal__parallax">
+  <div class="projects__overlay"></div>
+</section>
+
+<section class="projects__caption">
+  <div>
+    <h1 class="projects__title">
+      Consultants
+    </h1>
+  </div>
+</section>
+
+<!-- Projects__cards -->
+{% include 'partial/people-card.html' %}
+
+
+<section id="ministy-work" class="sector">
+  <!-- Projects Text -->
+  <article class="grid__span">
+    <section class="sector__text">
+      <p>
+        Consultants play a vital role in delivering tailored design and engineering solutions. They collaborate closely
+        with clients to understand their needs and develop innovative strategies that address unique challenges.
+        Consultants bring specialized knowledge in areas such as structural, mechanical, or electrical engineering,
+        enhancing project quality. Through effective communication and teamwork, they ensure projects progress smoothly
+        from inception to completion. Their commitment to sustainability and best practices helps create spaces that are
+        both functional and environmentally friendly.
+      </p>
+    </section>
+
+    <section class="senior__consultants">
+        {% for consultant in consultants %}
+        <div class="board-member-card">
+            <div class="board-member-header">
+                <div class="board-member-photo">
+                    <img
+                        src="{{ consultant.profile_picture.url }}"
+                        alt="{{ consultant.name }}"
+                        loading="lazy"
+                    />
+                </div>
+                <h3 class="board-member-name">{{ consultant.name }}</h3>
+                <p class="board-member-title">
+                    {{ consultant.profession }}
+                </p>
+                <p class="board-member-title">
+                    {{ consultant.position }}
+                </p>
+                <p class="board-member-title">
+                    {{ consultant.region }}
+                </p>
+            </div>
+        </div>
+        {% endfor %}
+    </section>
+
+  </article>
+
+  <aside class="sector__aside">
+    <div class="sector__links-wrapper">
+      <a href="{% url 'people' %}">Back to People</a>
+      <p>Consultants</p>
+      <div class="sector__links">
+        <a href="#ministy-work">AESL Consultants</a>
+        <a href="#sector">AESL Consultants List</a>
+      </div>
+    </div>
+    <div class="sector__navigation">
+      <p>Previous</p>
+      <a href="{% url 'services' %}">Senior Consultants</a>
+      <p>Next</p>
+      <a href="{% url 'services' %}">Senior Consultants</a>
+    </div>
+  </aside>
+</section>
+
+
+<!-- page location Section -->
+<section class="page__location">
+  <div class="page__flex">
+    <img src="{% static 'img/aesl_logo.png' %}" alt="aesl logo" class="info__building-image-large" />
+    <p>AESL || {{title}}</p>
+  </div>
+  <p>Consulting Architects,<br /> Engineers and Surveyors</p>
+</section>
+
+
+{% endblock content %}

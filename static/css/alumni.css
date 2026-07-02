@@ -1,0 +1,39 @@
+.alumni__wrapper {
+  position: relative;
+  height: 65vh;
+  /* background-image: url("../img/management-1.jpg"); */
+  /* Replace with your image */
+  background-attachment: fixed;
+  background-position: bottom;
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.alumn__wrapper {
+  margin: 1rem 2rem;
+}
+
+.alumni__name {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: var(--primary-color);
+  margin-bottom: 0.5rem;
+}
+
+.alumni__project-name {
+  background-color: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  position: absolute;
+  bottom: 2rem;
+  right: 10px;
+  padding: 0.5rem 1rem;
+}
+
+.alumni__about {
+  line-height: 1.6;
+  font-size: 1.1rem;
+  color: var(--primary-color);
+}
