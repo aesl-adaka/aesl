@@ -9,6 +9,17 @@
   box-sizing: border-box;
 }
 
+
+@font-face {
+  font-family: "NewRailAlphabet-White";
+  src: url("https://db.onlinewebfonts.com/t/a9db66cbaf8b1781ee08aeaae793c61b.eot");
+  src: url("https://db.onlinewebfonts.com/t/a9db66cbaf8b1781ee08aeaae793c61b.eot?#iefix")format("embedded-opentype"),
+    url("https://db.onlinewebfonts.com/t/a9db66cbaf8b1781ee08aeaae793c61b.woff2")format("woff2"),
+    url("https://db.onlinewebfonts.com/t/a9db66cbaf8b1781ee08aeaae793c61b.woff")format("woff"),
+    url("https://db.onlinewebfonts.com/t/a9db66cbaf8b1781ee08aeaae793c61b.ttf")format("truetype"),
+    url("https://db.onlinewebfonts.com/t/a9db66cbaf8b1781ee08aeaae793c61b.svg#NewRailAlphabet-White")format("svg");
+}
+
 :root {
   --primary-color: #2d4f7b;
   /* --secondary-color: #ff0; */
@@ -26,8 +37,10 @@ html {
 }
 
 body {
-  font-family: var(--font-family);
-  line-height: 1.6;
+  /* font-family: var(--font-family) !important; */
+  font-family: "NewRailAlphabet-White";
+  line-height: 0.6;
+  font-weight: 300;
   color: #1a1a1a;
   background-color: #f9f9f9;
 }
