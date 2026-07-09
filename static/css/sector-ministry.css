@@ -27,9 +27,8 @@
 .sector__text p {
   line-height: 1.5;
   color: var(--primary-color);
-  letter-spacing: 1px;
-  text-align: justify;
-  font-size: 1.4rem;
+  text-align: left;
+  font-size: 1.3rem;
 }
 
 .grid__span {
@@ -75,7 +74,7 @@
 .sector__links-wrapper {
   font-size: 0.9rem;
   margin: 2rem 0;
-  font-weight: 600;
+  font-weight: 300;
   color: #555;
 }
 
@@ -87,7 +86,7 @@
 
 .sector__links p {
   color: var(--primary-color);
-  font-weight: 700;
+  font-weight: 300;
   text-decoration: underline;
 }
 

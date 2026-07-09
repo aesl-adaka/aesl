@@ -132,8 +132,7 @@
 .projects__text p {
   line-height: 1.6;
   color: var(--primary-color);
-  letter-spacing: 2px;
-  /* text-align: justify; */
+  text-align: left;
   font-size: 1.4rem;
 }
 
@@ -318,7 +317,7 @@
 }
 
 .details__head {
-  font-weight: 600;
+  font-weight: 500;
   margin-bottom: -0.1rem;
 }
 
