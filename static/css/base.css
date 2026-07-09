@@ -37,10 +37,10 @@ html {
 }
 
 body {
-  /* font-family: var(--font-family) !important; */
-  font-family: "NewRailAlphabet-White";
+  font-family: var(--font-family) !important;
+  /* font-family: "NewRailAlphabet-White"; */
   line-height: 0.6;
-  font-weight: 300;
+  font-weight: 300 !important;
   color: #1a1a1a;
   background-color: #f9f9f9;
 }
