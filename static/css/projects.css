@@ -132,7 +132,8 @@
 .projects__text p {
   line-height: 1.6;
   color: var(--primary-color);
-  text-align: left;
+  text-align: left !important;
+  font-weight: 300;
   font-size: 1.4rem;
 }
 

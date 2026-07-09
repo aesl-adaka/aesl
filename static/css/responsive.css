@@ -276,6 +276,11 @@
     font-size: 1.1rem;
   }
 
+
+  .page__location {
+    padding: 0.5rem 0.7rem;
+  }
+
   .page__location p {
     font-size: 0.9rem;
   }
