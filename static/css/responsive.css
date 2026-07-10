@@ -211,6 +211,12 @@
     z-index: 1000;
   }
 
+
+  .content {
+    bottom: 1rem;
+    padding: 1rem 0rem;
+  }
+
   .parallax .content h1 {
     font-size: 2rem;
   }
