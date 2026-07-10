@@ -374,6 +374,7 @@ class People(models.Model, ImageOptimizeMixin):
     profile_picture = models.ImageField(
         upload_to="people/", blank=True, null=True)
     position = models.CharField(max_length=100, default="position", blank=True)
+    rank = models.CharField(max_length=100, default="rank", blank=True)
     category = models.CharField(max_length=100, default="category")
     department = models.CharField(max_length=100, blank=True)
     region = models.CharField(max_length=100, blank=True)
