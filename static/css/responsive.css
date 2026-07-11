@@ -83,6 +83,11 @@
     margin-top: 2rem;
   }
 
+
+  .parallax-carousel {
+    height: 64vh;
+  }
+
   .details__wrapper {
     display: grid;
     grid-template-columns: repeat(1, 1fr);
@@ -114,6 +119,10 @@
 
 /* Tablet phones */
 @media (max-width: 768px) {
+
+  .parallax-carousel {
+    height: 70vh;
+  }
 
   .content h1 {
     font-size: 2rem;
@@ -220,7 +229,6 @@
     width: 80%;
     z-index: 1000;
   }
-
 
   .content {
     bottom: 1rem;
