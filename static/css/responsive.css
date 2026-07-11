@@ -105,10 +105,20 @@
     grid-template-columns: repeat(1, 1fr) !important;
     margin: 0.4rem 0.2rem;
   }
+
+  .image__content h3:not(:first-of-type) {
+    margin-bottom: 1px;
+    font-size: 1rem;
+  }
 }
 
 /* Tablet phones */
 @media (max-width: 768px) {
+
+  .content h1 {
+    font-size: 2rem;
+  }
+
   .mobile__menuoverlay {
     width: 50%;
     z-index: 1000;
@@ -217,12 +227,12 @@
     padding: 1rem 0rem;
   }
 
-  .parallax .content h1 {
-    font-size: 2rem;
+  .content h1 {
+    font-size: 1.7rem;
   }
 
   .parallax .content p {
-    font-size: 0.9rem;
+    font-size: 0.7rem;
   }
 
   .button {
