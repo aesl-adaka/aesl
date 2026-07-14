@@ -22,6 +22,12 @@ from frontend.models import (
     Staff,
     Alumni,
 )
+from django.db.models import Q
+from django.urls import reverse
+from rest_framework.views import APIView
+from rest_framework.response import Response
+
+from frontend.models import People, Project, ProjectGalleryImage
 
 
 class HomeView(View):
@@ -608,3 +614,213 @@ class CategoryNewsListView(ListView):
         context["categories"] = Category.objects.filter(is_active=True)
         context["page_title"] = f"{self.category.name} - News"
         return context
+
+
+class NavbarSearchAPIView(APIView):
+
+    def get(self, request):
+
+        query = request.GET.get("q", "").strip()
+
+        results = []
+
+        if not query:
+            return Response({
+                "results": []
+            })
+
+        # ==================================
+        # PEOPLE SEARCH
+        # ==================================
+
+        people = People.objects.filter(
+            Q(name__icontains=query) |
+            Q(position__icontains=query) |
+            Q(rank__icontains=query)
+        )[:5]
+
+        rank_urls = {
+
+            "principal_consultants":
+                "principal_consultants",
+
+            "senior_consultants":
+                "senior_consultants",
+
+            "consultant":
+                "consultants",
+
+            "professional":
+                "professional",
+
+            "assistant_professionals":
+                "assistant_professionals",
+
+            "senior_professionals":
+                "senior_professional",
+
+            "support_team":
+                "support_team",
+        }
+
+        for person in people:
+
+            rank_key = person.rank.lower().replace(" ", "_")
+
+            url_name = rank_urls.get(
+                rank_key,
+                "people"
+            )
+
+            results.append({
+
+                "type": "person",
+
+                "name": person.name,
+
+                "subtitle": person.rank.replace(
+                    "_",
+                    " "
+                ).title(),
+
+                "url": reverse(url_name)
+
+            })
+
+        # ==================================
+        # PROJECT TITLE SEARCH
+        # ==================================
+
+        projects = Project.objects.filter(
+            Q(title__icontains=query)
+        )[:5]
+
+        for project in projects:
+
+            results.append({
+
+                "type": "project",
+
+                "name": project.title,
+
+                "subtitle": (
+                    project.category.name
+                    if project.category
+                    else "Project"
+                ),
+
+                "url": reverse(
+                    "project_detail",
+                    kwargs={
+                        "slug": project.slug
+                    }
+                )
+
+            })
+
+        # ==================================
+        # PROJECT CATEGORY SEARCH
+        # FROM ProjectGalleryImage
+        # ==================================
+
+        gallery_categories = ProjectGalleryImage.objects.filter(
+            Q(alt_text__icontains=query) |
+            Q(category__icontains=query)
+        ).values(
+            "alt_text",
+            "category"
+        ).distinct()[:10]
+
+        category_urls = {
+
+            "education":
+                "education",
+
+            "health":
+                "health",
+
+            "office":
+                "office_retail",
+
+            "office retail":
+                "office_retail",
+
+            "residential":
+                "residential",
+
+            "industrial":
+                "industrial_infrastructure",
+
+            "industrial infrastructure":
+                "industrial_infrastructure",
+
+            "hospitality":
+                "hospitality",
+
+            "sport":
+                "sport_leisure",
+
+            "sport and leisure":
+                "sport_leisure",
+
+            "sports":
+                "sport_leisure",
+
+            "landscape":
+                "landscape_planning",
+
+            "landscape planning":
+                "landscape_planning",
+
+            "civic":
+                "civic_culture",
+
+            "civic culture":
+                "civic_culture",
+        }
+
+        added_categories = set()
+
+        for item in gallery_categories:
+
+            # Use category first
+            # because that is your actual project classification
+
+            category_name = item["category"]
+
+            # fallback to alt_text if category is empty
+
+            if not category_name:
+                category_name = item["alt_text"]
+
+            if not category_name:
+                continue
+
+            clean_name = category_name.lower().strip()
+
+            if clean_name in added_categories:
+                continue
+
+            added_categories.add(clean_name)
+
+            url_name = category_urls.get(clean_name)
+
+            if url_name:
+
+                results.append({
+
+                    "type": "project_category",
+
+                    "name": category_name,
+
+                    "subtitle": "Project Category",
+
+                    "url": reverse(url_name)
+
+                })
+
+        return Response({
+
+            "results": results
+
+        })

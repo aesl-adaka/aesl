@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     # Third-party
     "django_browser_reload",
     "django_cleanup.apps.CleanupConfig",
+    "rest_framework"
 ]
 
 # Only add this in development to avoid serving static in runserver when

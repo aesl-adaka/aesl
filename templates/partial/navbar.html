@@ -29,11 +29,20 @@
   {% comment %}
   navbar links section
   {% endcomment %}
-  <div class="nav__links">
-  <input type="search" id="nav-toggle" placeholder="Search for People and Projects" class="search__input" />
-    <button class="search__btn">
+  <div class="search__container">
+    <div class="search__input-container">
+      <input
+      id="nav-search"
+      class="search__input"
+      placeholder="Search People and Projects"
+      />
+      <button class="search__btn">
       <i class="fa fa-search"></i>
-    </button>
+      </button>
+    </div>
+
+    <div id="search-results" class="search__results-container"></div>
+
   </div>
 
    <nav class="nav__menu">
