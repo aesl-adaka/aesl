@@ -818,7 +818,6 @@ class NavbarSearchAPIView(APIView):
                     "url": reverse(url_name)
 
                 })
-                print(results)
 
         return Response({
 

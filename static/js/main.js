@@ -41,8 +41,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const searchInput = document.getElementById("nav-search");
   const searchResults = document.getElementById("search-results");
-  console.log(searchInput)
-  console.log(searchResults)
 
 
   if (searchInput && searchResults) {
