@@ -239,20 +239,27 @@ class PeopleView(View):
 
 class PrincipalConsultantsView(View):
     def get(self, request):
-        context = {"title": "People"}
+        people = People.objects.all()
+        principal_consultants = people.filter(
+            rank__iexact="principal_consultants")
+        context = {
+            "title": "People",
+            "principal_consultants": principal_consultants}
         return render(request, "frontend/principal__consultants.html", context)
 
 
 class SeniorConsultantsView(View):
     def get(self, request):
-        context = {"title": "People"}
+        people = People.objects.all()
+        senior_consultants = people.filter(rank__iexact="senior_consultants")
+        context = {"title": "People", "senior_consultants": senior_consultants}
         return render(request, "frontend/senior_consultants.html", context)
 
 
 class ConsultantsView(View):
     def get(self, request):
         people = People.objects.all()
-        consultants = people.filter(category__iexact="consultants")
+        consultants = people.filter(rank__iexact="consultants")
         context = {"title": "People", "consultants": consultants}
         return render(request, "frontend/consultants.html", context)
 
@@ -268,7 +275,9 @@ class SeniorProfessionalView(View):
 
 class AssistantProfessionalsView(View):
     def get(self, request):
-        assistant_professionals = People.objects.all()
+        people = People.objects.all()
+        assistant_professionals = people.filter(
+            rank__iexact="assistant_professionals")
         context = {
             "title": "People",
             "assistant_professionals": assistant_professionals,
@@ -279,7 +288,7 @@ class AssistantProfessionalsView(View):
 class ProfessionalView(View):
     def get(self, request):
         people = People.objects.all()
-        professionals = people.filter(category__iexact="professional")
+        professionals = people.filter(rank__iexact="professional")
         context = {
             "title": "People",
             "professionals": professionals,
@@ -290,7 +299,7 @@ class ProfessionalView(View):
 class SupportTeamView(View):
     def get(self, request):
         people = People.objects.all()
-        support_teams = people.filter(category__iexact="support")
+        support_teams = people.filter(rank__iexact="support_team")
         context = {
             "title": "People",
             "support_teams": support_teams,
