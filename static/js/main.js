@@ -41,6 +41,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const searchInput = document.getElementById("nav-search");
   const searchResults = document.getElementById("search-results");
+  console.log(searchInput)
+  console.log(searchResults)
 
 
   if (searchInput && searchResults) {
@@ -51,6 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     searchInput.addEventListener("input", function () {
+      console.log(this.value)
 
 
       const query = this.value.trim();

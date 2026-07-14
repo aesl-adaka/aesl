@@ -110,6 +110,23 @@
       </div>
   </a>
 
+
+  <div class="search__container">
+    <div class="search__input-container">
+      <input
+      id="nav-search"
+      class="search__input"
+      placeholder="Search People and Projects"
+      />
+      <button class="search__btn">
+      <i class="fa fa-search"></i>
+      </button>
+    </div>
+
+    <div id="search-results" class="search__results-container"></div>
+
+  </div>
+
      <nav class="nav__menu">
          <a class="{% if request.resolver_match.url_name == 'projects' %}active__link{% endif %}" href="{% url 'projects' %}"><i class="fas fa-building"></i> Projects</a>
          <a class="{% if request.resolver_match.url_name == 'practice' %}active__link{% endif %}" href="{% url 'practice' %}"><i class="fas fa-city"></i> Practice</a>
