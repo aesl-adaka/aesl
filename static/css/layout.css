@@ -238,7 +238,8 @@ a:active {
 }
 
 .toggle__sidebar {
-  display: none;
+  /* display: none; */
+  visibility: visible;
 }
 
 /* home layout*/

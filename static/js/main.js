@@ -38,270 +38,141 @@ document.addEventListener("DOMContentLoaded", () => {
   // NAVBAR LIVE SEARCH
   // ==============================
 
+  const searchInputs = document.querySelectorAll(".search__input");
+  const searchResultsContainers = document.querySelectorAll(".search__results-container");
 
-  const searchInput = document.getElementById("nav-search");
-  const searchResults = document.getElementById("search-results");
+  searchInputs.forEach((input, index) => {
 
-
-  if (searchInput && searchResults) {
-
+    const searchResults = searchResultsContainers[index];
 
     let searchTimeout;
 
-
-
-    searchInput.addEventListener("input", function () {
-      console.log(this.value)
-
+    input.addEventListener("input", function () {
 
       const query = this.value.trim();
 
-
       clearTimeout(searchTimeout);
-
-
 
       if (query.length < 1) {
 
-
         searchResults.innerHTML = "";
-
         searchResults.style.display = "none";
-
-
         return;
 
       }
 
-
-
       searchTimeout = setTimeout(async () => {
 
-
         try {
-
 
           const response = await fetch(
             `/api/search/?q=${encodeURIComponent(query)}`
           );
 
-
           const data = await response.json();
-
-
 
           searchResults.innerHTML = "";
 
-
-
           if (!data.results || data.results.length === 0) {
 
-
             searchResults.innerHTML = `
-
-              <div class="search__item">
-
-                No results found
-
-              </div>
-
-            `;
-
+            <div class="search__item">
+              No results found
+            </div>
+          `;
 
             searchResults.style.display = "block";
-
-
             return;
 
           }
 
-
-
-
           data.results.forEach(item => {
-
-
 
             let icon = "";
 
-
-
             if (item.type === "person") {
 
-
-              icon = `
-                <i class="fas fa-user"></i>
-              `;
-
+              icon = `<i class="fas fa-user"></i>`;
 
             }
             else if (item.type === "project") {
 
-
-              icon = `
-                <i class="fas fa-building"></i>
-              `;
-
+              icon = `<i class="fas fa-building"></i>`;
 
             }
             else if (item.type === "project_category") {
 
-
-              icon = `
-                <i class="fas fa-layer-group"></i>
-              `;
+              icon = `<i class="fas fa-layer-group"></i>`;
 
             }
 
-
-
-
             const resultItem = document.createElement("div");
 
+            resultItem.classList.add("search__item");
 
-            resultItem.classList.add(
-              "search__item"
-            );
-
-
-            resultItem.setAttribute(
-              "data-url",
-              item.url
-            );
-
-
+            resultItem.setAttribute("data-url", item.url);
 
             resultItem.innerHTML = `
+            <div class="search__result-title">
+              ${icon}
+              <strong>${item.name}</strong>
+            </div>
 
+            <small>
+              ${item.subtitle || item.type}
+            </small>
+          `;
 
-              <div class="search__result-title">
+            resultItem.addEventListener("click", () => {
 
-
-                ${icon}
-
-
-                <strong>
-
-                  ${item.name}
-
-                </strong>
-
-
-              </div>
-
-
-
-              <small>
-
-                ${item.subtitle || item.type}
-
-              </small>
-
-
-
-            `;
-
-
-
-            resultItem.addEventListener(
-              "click",
-              () => {
-
-
-                if (item.url) {
-
-                  window.location.href = item.url;
-
-                }
-
-
+              if (item.url) {
+                window.location.href = item.url;
               }
-            );
 
+            });
 
-
-            searchResults.appendChild(
-              resultItem
-            );
-
+            searchResults.appendChild(resultItem);
 
           });
 
-
-
           searchResults.style.display = "block";
 
+        }
+        catch (error) {
 
-
-        } catch (error) {
-
-
-          console.error(
-            "Search error:",
-            error
-          );
-
+          console.error("Search error:", error);
 
         }
-
-
 
       }, 300);
 
+    });
 
+    // Show results when focusing the input
+    input.addEventListener("focus", function () {
+
+      if (searchResults.innerHTML.trim()) {
+        searchResults.style.display = "block";
+      }
 
     });
 
+  });
 
+  // Hide all dropdowns when clicking outside
+  document.addEventListener("click", function (event) {
 
+    if (!event.target.closest(".search__container")) {
 
+      searchResultsContainers.forEach(container => {
 
-    // Hide dropdown outside click
+        container.style.display = "none";
 
-    document.addEventListener(
-      "click",
-      function (event) {
+      });
 
+    }
 
-        if (
-          !event.target.closest(
-            ".search__container"
-          )
-        ) {
-
-          searchResults.style.display = "none";
-
-        }
-
-
-      }
-    );
-
-
-
-
-
-    // Show again on focus
-
-    searchInput.addEventListener(
-      "focus",
-      function () {
-
-
-        if (
-          searchResults.innerHTML.trim()
-        ) {
-
-          searchResults.style.display = "block";
-
-        }
-
-
-      }
-    );
-
-
-  }
+  });
 
 
 
