@@ -259,7 +259,7 @@ class SeniorConsultantsView(View):
 class ConsultantsView(View):
     def get(self, request):
         people = People.objects.all()
-        consultants = people.filter(rank__iexact="consultants")
+        consultants = people.filter(rank__iexact="consultant")
         context = {"title": "People", "consultants": consultants}
         return render(request, "frontend/consultants.html", context)
 
