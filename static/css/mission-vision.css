@@ -12,6 +12,11 @@
   align-items: center;
 }
 
+.mission_caption {
+  padding: 0.4rem 0.8rem;
+  background-color: #C5A028
+}
+
 .mission,
 .vision,
 .values {

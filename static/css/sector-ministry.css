@@ -45,6 +45,11 @@
   padding-left: 0.5rem;
 }
 
+.sector__caption {
+  padding: 0.4rem 0.8rem;
+  background-color: #17A589;
+}
+
 .active {
   position: fixed;
   right: 0;

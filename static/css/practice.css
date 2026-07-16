@@ -27,6 +27,12 @@
   object-fit: cover;
 }
 
+
+.practice__caption {
+  padding: 0.4rem 0.8rem;
+  background-color: #FF7675;
+}
+
 .practice__detail {
   padding: 1rem;
   border-radius: 0.5rem;

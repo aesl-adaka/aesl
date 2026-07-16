@@ -27,12 +27,14 @@
 .projects__caption {
   padding: 0.4rem 0.8rem;
   background-color: var(--secondary-color);
+  /* background-color: #BDC3C7; */
 }
+
 
 .projects__title {
   font-size: 3rem;
   text-transform: uppercase;
-  font-weight: 700;
+  font-weight: 500;
   color: var(--primary-color);
   display: flex;
   gap: 1rem;

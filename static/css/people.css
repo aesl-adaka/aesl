@@ -19,6 +19,12 @@
    padding: 1rem 2rem;
  }
 
+ .people__caption {
+
+   padding: 0.4rem 0.8rem;
+   background-color: #FF8C69;
+ }
+
  .people__text {
    grid-column: span 2;
    color: var(--primary-color);
