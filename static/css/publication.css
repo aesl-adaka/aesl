@@ -31,13 +31,27 @@
 }
 
 
+.publications a {
+  color: var(--primary-color);
+}
+
+
+.publications a:hover {
+  color: var(--secondary-color)
+}
+
 .publication__caption i {
   margin-left: 0.2rem;
 }
 
 .publication__caption {
   padding: 0.4rem 0.8rem;
-  background-color: #FFF0E6;
+  background-color: #6C757D;
+}
+
+
+.publication__caption h1 {
+  color: white;
 }
 
 
@@ -75,7 +89,7 @@
 
 .download__button {
   background-color: var(--primary-color);
-  color: white;
+  color: white !important;
   border: none;
   padding: 0.5rem 1rem;
   border-radius: 5px;

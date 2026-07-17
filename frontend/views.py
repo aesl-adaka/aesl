@@ -469,16 +469,20 @@ class PublicationDownloadView(View):
 
         # Get the mime type
         mime_type, _ = mimetypes.guess_type(file_path)
+
         if mime_type is None:
             mime_type = "application/octet-stream"
 
         # Open and read the file
         with open(file_path, "rb") as file:
-            response = HttpResponse(file.read(), content_type=mime_type)
+            response = HttpResponse(
+                file.read(),
+                content_type=mime_type
+            )
 
-        # Set the filename for download
+        # Open file in browser instead of downloading
         filename = os.path.basename(file_path)
-        response["Content-Disposition"] = f'attachment; filename="{filename}"'
+        response["Content-Disposition"] = f'inline; filename="{filename}"'
 
         return response
 
