@@ -5,456 +5,198 @@
 {{ article.meta_title|default:article.title }} | AESL
 {% endblock title %}
 
-
 {% block meta %}
 <meta name="description" content="{{ article.meta_description|default:article.excerpt }}">
 <meta property="og:title" content="{{ article.title }}">
 <meta property="og:description" content="{{ article.excerpt }}">
-
 {% if article.featured_image %}
 <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{{ article.featured_image.url }}">
 {% endif %}
-
 <meta property="og:type" content="article">
 {% endblock meta %}
 
-
-
 {% block content %}
-
 <section class="news__wrapper">
 
-
-    <!-- BACK BUTTON -->
     <a href="{% url 'news_list' %}" class="back-link">
         Back to News
     </a>
 
-
-
-    <!-- ARTICLE -->
     <article class="article-container">
 
-
-        <!-- HERO IMAGE -->
         <div class="article-hero">
-
-
             {% if article.featured_image %}
-
-                <img 
-                src="{{ article.featured_image.url }}"
-                alt="{{ article.title }}"
-                loading="lazy">
-
+            <img src="{{ article.featured_image.url }}" alt="{{ article.title }}" loading="lazy">
             {% else %}
-
-                <img 
-                src="{% static 'img/default-news.jpg' %}"
-                alt="AESL News">
-
+            <img src="{% static 'img/default-news.jpg' %}" alt="AESL News">
             {% endif %}
-
-
 
             {% if article.category %}
-
-            <span class="article-badge">
-
-                {{ article.category.name }}
-
-            </span>
-
+            <span class="article-badge">{{ article.category.name }}</span>
             {% endif %}
-
-
-
         </div>
-
-
-
-
 
         <div class="article-content">
 
-
-
-            <!-- HEADER -->
-
             <header class="article-header">
 
-
                 <div class="article-meta">
-
-
                     <span class="article-date">
-
                         {{ article.publish_date|date:"F d, Y" }}
-
                     </span>
-
-
 
                     <span class="article-read-time">
-
                         {{ article.views_count }} views
-
                     </span>
-
-
                 </div>
 
-
-
-
-
-                <h1 class="article-title">
-
-                    {{ article.title }}
-
-                </h1>
+                <h1 class="article-title">{{ article.title }}</h1>
 
             </header>
-            <!-- ARTICLE CONTENT -->
-
             <div class="article-body">
 
-
-                <!-- SUMMARY -->
-
                 {% if article.excerpt %}
-
-                <p class="lead">
-
-                    {{ article.excerpt }}
-
-                </p>
-
+                <p class="lead">{{ article.excerpt }}</p>
                 {% endif %}
-
-
-
-
-
-                <!-- CKEDITOR CONTENT -->
 
                 <div class="ckeditor-content">
-
-
                     {{ article.content|safe }}
-
-
                 </div>
 
-
-
-
-
-
-
-                <!-- IMAGE GALLERY -->
-
                 {% if gallery_images %}
-
-
-                    <div class="article-gallery">
-
+                <div class="article-gallery">
 
                     {% for image in gallery_images %}
+                    <figure>
 
+                        <img src="{{ image.image.url }}"
+                             alt="{{ image.caption|default:article.title }}"
+                             loading="lazy">
 
+                        {% if image.caption %}
+                        <figcaption>{{ image.caption }}</figcaption>
+                        {% endif %}
 
-                        <figure>
-
-
-                            <img 
-                            src="{{ image.image.url }}"
-                            alt="{{ image.caption|default:article.title }}"
-                            loading="lazy">
-
-
-                            {% if image.caption %}
-
-                            <figcaption>
-
-                                {{ image.caption }}
-
-                            </figcaption>
-
-
-                            {% endif %}
-
-
-                        </figure>
-
-
-
+                    </figure>
                     {% endfor %}
 
-
-                    </div>
-
-
+                </div>
                 {% endif %}
 
-
-
-
             </div>
 
-
-
-
-
-
-
-
-            <!-- TAGS -->
 
             {% if article.tags %}
-
             <div class="article-tags">
 
-
                 {% for tag in article.tags.split %}
-
-
-                <span class="tag">
-
-                    {{ tag }}
-
-                </span>
-
-
+                <span class="tag">{{ tag }}</span>
                 {% endfor %}
 
-
-
             </div>
-
-
             {% endif %}
 
 
-
-
-
-
-
-
-
-
-            <!-- SHARE -->
-
             <div class="article-share">
 
-
                 <span class="share-label">
-
                     Share this article:
-
                 </span>
-
-
 
                 <div class="share-buttons">
 
-
-                    <a 
-                    href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}"
-                    target="_blank"
-                    class="share-btn facebook">
-
-                    f
-
+                    <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}"
+                       target="_blank"
+                       class="share-btn facebook">
+                        f
                     </a>
 
-
-
-
-
-                    <a 
-                    href="https://twitter.com/intent/tweet?url={{ request.build_absolute_uri }}&text={{ article.title|urlencode }}"
-                    target="_blank"
-                    class="share-btn twitter">
-
-                    𝕏
-
+                    <a href="https://twitter.com/intent/tweet?url={{ request.build_absolute_uri }}&text={{ article.title|urlencode }}"
+                       target="_blank"
+                       class="share-btn twitter">
+                        𝕏
                     </a>
 
-
-
-
-
-                    <a 
-                    href="https://www.linkedin.com/sharing/share-offsite/?url={{ request.build_absolute_uri }}"
-                    target="_blank"
-                    class="share-btn linkedin">
-
-                    in
-
+                    <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ request.build_absolute_uri }}"
+                       target="_blank"
+                       class="share-btn linkedin">
+                        in
                     </a>
 
-
-
-
-
-                    <a 
-                    href="https://wa.me/?text={{ article.title|urlencode }}%20{{ request.build_absolute_uri }}"
-                    target="_blank"
-                    class="share-btn whatsapp">
-
-                    ☎
-
+                    <a href="https://wa.me/?text={{ article.title|urlencode }}%20{{ request.build_absolute_uri }}"
+                       target="_blank"
+                       class="share-btn whatsapp">
+                        ☎
                     </a>
-
-
 
                 </div>
 
-
-
             </div>
 
-
-
-
-
-
         </div>
-
-
 
     </article>
 
 
-
-
-
-
-
-
-
-    <!-- RELATED NEWS -->
-
-
     <section class="related-articles">
 
-
         <h2 class="related-title">
-
             Related Articles
-
         </h2>
-
 
 
         <div class="related-grid">
 
+            {% for related in related_articles %}
 
-        {% for related in related_articles %}
-
-
-
-            <a 
-            href="{{ related.get_absolute_url }}"
-            class="related-card">
-
+            <a href="{{ related.get_absolute_url }}" class="related-card">
 
                 <div class="related-card-image">
 
-
                     {% if related.featured_image %}
 
-
-                    <img 
-                    src="{{ related.featured_image.url }}"
-                    alt="{{ related.title }}">
-
-
+                    <img src="{{ related.featured_image.url }}"
+                         alt="{{ related.title }}">
 
                     {% else %}
 
-
-                    <img 
-                    src="{% static 'img/default-news.jpg' %}"
-                    alt="{{ related.title }}">
-
-
+                    <img src="{% static 'img/default-news.jpg' %}"
+                         alt="{{ related.title }}">
 
                     {% endif %}
 
-
-
                 </div>
-
-
-
-
 
 
                 <div class="related-card-content">
 
-
-
                     {% if related.category %}
-
-
                     <span class="related-card-category">
-
                         {{ related.category.name }}
-
                     </span>
-
-
-
                     {% endif %}
 
 
-
-
-
                     <h3 class="related-card-title">
-
-
                         {{ related.title }}
-
-
                     </h3>
-
-
 
                 </div>
 
-
-
             </a>
 
-
-
-        {% empty %}
-
+            {% empty %}
 
             <p>
-
                 No related articles available.
-
             </p>
 
-
-        {% endfor %}
-
-
+            {% endfor %}
 
         </div>
 
-
-
     </section>
 
-
-
 </section>
-
 
 {% endblock content %}
