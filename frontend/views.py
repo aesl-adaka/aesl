@@ -507,34 +507,57 @@ class RightToInformationView(View):
 
 class NewsListView(ListView):
     """
-    Displays a paginated list of published news articles
+    Displays the latest featured article followed by
+    all other published articles.
     """
 
     model = NewsArticle
     template_name = "frontend/news.html"
     context_object_name = "articles"
-    paginate_by = 10  # articles per page - adjust as needed
+    paginate_by = 9
 
     def get_queryset(self):
-        # Only show published articles, ordered by publish date (newest first)
-        return (
+        queryset = (
             NewsArticle.objects.filter(
-                is_published=True, publish_date__lte=timezone.now()
+                is_published=True,
+                publish_date__lte=timezone.now(),
             )
             .select_related("category", "author")
             .order_by("-publish_date")
         )
 
+        # Remove the featured article from the normal list
+        if hasattr(self, "featured_article") and self.featured_article:
+            queryset = queryset.exclude(pk=self.featured_article.pk)
+
+        return queryset
+
     def get_context_data(self, **kwargs):
+
+        # Get the latest featured article first
+        self.featured_article = (
+            NewsArticle.objects.filter(
+                is_published=True,
+                is_featured=True,
+                publish_date__lte=timezone.now(),
+            )
+            .select_related("category", "author")
+            .order_by("-publish_date")
+            .first()
+        )
+
+        # Now let ListView build the context
         context = super().get_context_data(**kwargs)
 
-        # Add featured articles (optional)
-        context["featured_articles"] = NewsArticle.objects.filter(
-            is_published=True, is_featured=True, publish_date__lte=timezone.now()
-        ).order_by("-publish_date")[:3]
+        context["title"] = "News"
 
-        # Add all active categories for sidebar/filter
-        context["categories"] = Category.objects.filter(is_active=True)
+        # Featured article (single object)
+        context["featured_article"] = self.featured_article
+
+        # Categories
+        context["categories"] = Category.objects.filter(
+            is_active=True
+        ).order_by("name")
 
         return context
 
@@ -547,40 +570,92 @@ class NewsDetailView(DetailView):
     model = NewsArticle
     template_name = "frontend/news_detail.html"
     context_object_name = "article"
+
     slug_field = "slug"
     slug_url_kwarg = "slug"
 
     def get_queryset(self):
-        # Only allow access to published articles
         return NewsArticle.objects.filter(
-            is_published=True, publish_date__lte=timezone.now()
-        ).select_related("category", "author")
+            is_published=True,
+            publish_date__lte=timezone.now()
+        ).select_related(
+            "category",
+            "author"
+        )
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        # Increment views count (simple version)
-        self.object.views_count += 1
-        self.object.save(update_fields=["views_count"])
+        article = self.object
 
-        # Related articles (same category, exclude current)
+        # Page title
+        context["title"] = article.title
+
+        # Increase views
+        article.views_count += 1
+        article.save(update_fields=["views_count"])
+
+        # Related articles
         context["related_articles"] = (
             NewsArticle.objects.filter(
-                category=self.object.category,
+                category=article.category,
                 is_published=True,
-                publish_date__lte=timezone.now(),
+                publish_date__lte=timezone.now()
             )
-            .exclude(id=self.object.id)
-            .order_by("-publish_date")[:4]
+            .exclude(id=article.id)
+            .select_related("category")
+            .order_by("-publish_date")[:3]
         )
 
         # Gallery images
-        context["gallery_images"] = self.object.images.all().order_by("order")
-
-        # All categories for sidebar
-        context["categories"] = Category.objects.filter(is_active=True)
+        context["gallery_images"] = article.images.all()
 
         return context
+
+
+# class NewsDetailView(DetailView):
+#     """
+#     Displays a single news article
+#     """
+#
+#     model = NewsArticle
+#     template_name = "frontend/news_detail.html"
+#     context_object_name = "article"
+#     slug_field = "slug"
+#     slug_url_kwarg = "slug"
+#
+#     def get_queryset(self):
+#         # Only allow access to published articles
+#         return NewsArticle.objects.filter(
+#             is_published=True, publish_date__lte=timezone.now()
+#         ).select_related("category", "author")
+#
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#
+#         # Increment views count (simple version)
+#         self.object.views_count += 1
+#         self.object.save(update_fields=["views_count"])
+#
+#         # Related articles (same category, exclude current)
+#         context["related_articles"] = (
+#             NewsArticle.objects.filter(
+#                 category=self.object.category,
+#                 is_published=True,
+#                 publish_date__lte=timezone.now(),
+#             )
+#             .exclude(id=self.object.id)
+#             .order_by("-publish_date")[:4]
+#         )
+#
+#         # Gallery images
+#         context["gallery_images"] = self.object.images.all().order_by("order")
+#
+#         # All categories for sidebar
+#         context["categories"] = Category.objects.filter(is_active=True)
+#
+#         return context
+#
 
 
 class CategoryNewsListView(ListView):

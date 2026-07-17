@@ -36,9 +36,25 @@ INSTALLED_APPS = [
     "frontend",
     # Third-party
     "django_browser_reload",
+    "rest_framework",
+    "ckeditor",
+    "ckeditor_uploader",
     "django_cleanup.apps.CleanupConfig",
-    "rest_framework"
 ]
+
+# ==========================
+# CKEDITOR SETTINGS
+# ==========================
+
+CKEDITOR_UPLOAD_PATH = "content/ckeditor/"
+
+CKEDITOR_CONFIGS = {
+    "default": {
+        "toolbar": "full",
+        "height": 400,
+        "width": "100%",
+    },
+}
 
 # Only add this in development to avoid serving static in runserver when
 # DEBUG=True

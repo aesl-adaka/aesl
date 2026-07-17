@@ -30,6 +30,17 @@
   margin: 1rem 2rem;
 }
 
+
+.publication__caption i {
+  margin-left: 0.2rem;
+}
+
+.publication__caption {
+  padding: 0.4rem 0.8rem;
+  background-color: #FFF0E6;
+}
+
+
 /* added this to push to git */
 .publications img {
   width: 100%;

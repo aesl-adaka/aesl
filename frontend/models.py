@@ -9,6 +9,7 @@ from django.urls import reverse
 from django.utils import timezone
 from django.utils.text import slugify
 from PIL import Image
+from ckeditor_uploader.fields import RichTextUploadingField
 
 
 # ==============================
@@ -498,7 +499,7 @@ class NewsArticle(models.Model):
         max_length=300, help_text="Short summary (displayed in lists/cards)"
     )
 
-    content = models.TextField()  # main article body
+    content = RichTextUploadingField()
 
     author = models.ForeignKey(
         User,
@@ -546,6 +547,12 @@ class NewsArticle(models.Model):
             self.meta_description = self.excerpt[:320]
 
         super().save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return reverse(
+            "news_detail",
+            kwargs={"slug": self.slug}
+        )
 
     def __str__(self):
         return self.title

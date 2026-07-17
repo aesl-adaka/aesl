@@ -10,6 +10,10 @@ urlpatterns = [
         "api/",
         include("frontend.api_urls")
     ),
+    path(
+        "ckeditor/",
+        include("ckeditor_uploader.urls")
+    ),
     path("__reload__/", include("django_browser_reload.urls")),
 ]
 
