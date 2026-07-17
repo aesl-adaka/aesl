@@ -30,7 +30,12 @@
 
 .practice__caption {
   padding: 0.4rem 0.8rem;
-  background-color: #FF7675;
+  background-color: #17A589;
+}
+
+
+.practice__caption h1 {
+  color: white;
 }
 
 .practice__detail {

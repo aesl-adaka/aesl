@@ -32,5 +32,9 @@
 
 .functions__caption {
   padding: 0.4rem 0.8rem;
-  background-color: #27AE60
+  background-color: #17A589;
+}
+
+.functions__caption h1 {
+  color: white;
 }

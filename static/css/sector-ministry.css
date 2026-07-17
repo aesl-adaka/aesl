@@ -50,6 +50,10 @@
   background-color: #17A589;
 }
 
+.sector__caption h1 {
+  color: white;
+}
+
 .active {
   position: fixed;
   right: 0;

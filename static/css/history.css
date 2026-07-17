@@ -26,5 +26,10 @@
 
 .history__caption {
   padding: 0.4rem 0.8rem;
-  background-color: #8B7355;
+  background-color: #17A589;
+}
+
+
+.history__caption h1 {
+  color: white
 }
