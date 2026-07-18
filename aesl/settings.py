@@ -86,6 +86,8 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                # Custom
+                "frontend.context_processors.people_navigation",
             ],
         },
     },
@@ -221,7 +223,34 @@ CKEDITOR_5_CONFIGS = {
             "undo",
             "redo",
         ],
-        "height": "500px",
+        "htmlSupport": {
+            "allow": [
+                {
+                    "name": "div",
+                    "classes": True,
+                    "attributes": True,
+                    "styles": True,
+                },
+                {
+                    "name": "img",
+                    "attributes": True,
+                    "classes": True,
+                    "styles": True,
+                },
+            ]
+        },
+
+        "image": {
+            "toolbar": [
+                "imageTextAlternative",
+                "toggleImageCaption",
+                "imageStyle:inline",
+                "imageStyle:block",
+                "imageStyle:side",
+            ]
+        },
+
+        "height": 600,
     },
 }
 
