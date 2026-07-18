@@ -37,8 +37,9 @@ INSTALLED_APPS = [
     # Third-party
     "django_browser_reload",
     "rest_framework",
-    "ckeditor",
-    "ckeditor_uploader",
+    'django_ckeditor_5',
+    # "ckeditor",
+    # "ckeditor_uploader",
     "django_cleanup.apps.CleanupConfig",
 ]
 
@@ -149,6 +150,80 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
+
+CKEDITOR_5_CONFIGS = {
+    "default": {
+        "toolbar": [
+            "sourceEditing",
+            "|",
+            "heading",
+            "|",
+            "bold",
+            "italic",
+            "underline",
+            "strikethrough",
+            "|",
+            "fontSize",
+            "fontColor",
+            "fontBackgroundColor",
+            "|",
+            "alignment",
+            "|",
+            "bulletedList",
+            "numberedList",
+            "todoList",
+            "|",
+            "outdent",
+            "indent",
+            "|",
+            "link",
+            "blockQuote",
+            "insertTable",
+            "imageUpload",
+            "mediaEmbed",
+            "|",
+            "horizontalLine",
+            "specialCharacters",
+            "code",
+            "codeBlock",
+            "|",
+            "findAndReplace",
+            "selectAll",
+            "|",
+            "undo",
+            "redo"
+        ],
+        "height": "500px",
+    },
+    "extends": {
+        "blockToolbar": [
+            "paragraph",
+            "heading1",
+            "heading2",
+            "heading3",
+            "|",
+            "bulletedList",
+            "numberedList",
+            "|",
+            "blockQuote",
+        ],
+        "toolbar": [
+            "sourceEditing",
+            "|",
+            "heading",
+            "|",
+            "bold",
+            "italic",
+            "underline",
+            "link",
+            "imageUpload",
+            "|",
+            "undo",
+            "redo",
+        ],
+        "height": "500px",
+    },
+}
 
 # Security (good choices – Vercel terminates SSL so these are safe)
 SECURE_SSL_REDIRECT = not DEBUG  # Only in production
