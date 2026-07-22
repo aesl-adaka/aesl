@@ -175,6 +175,74 @@
   font-size: 24px;
 }
 
+/* =========================
+   PAGINATION
+========================= */
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 60px auto 30px;
+}
+
+.pagination-btn {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 46px;
+  height: 46px;
+  padding: 0 18px;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 600;
+  color: #333;
+  background: #fff;
+  border: 1px solid #dcdcdc;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+/* Hover */
+
+.pagination-btn:hover {
+  background: var(--secondary-color);
+  color: #fff;
+  border-color: var(--secondary-color);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+/* Active page */
+
+.pagination-btn.active-page {
+  background: var(--secondary-color);
+  color: #fff;
+  /* border: 2px solid var(--primary-color); */
+  font-weight: 700;
+  cursor: default;
+  pointer-events: none;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+  transform: scale(1.05);
+}
+
+/* Previous & Next buttons */
+
+.pagination-btn:first-child,
+.pagination-btn:last-child {
+  padding: 0 22px;
+}
+
+/* Focus */
+
+.pagination-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+}
+
+
 /* ========== RESPONSIVE ========== */
 @media (max-width: 768px) {
   .news-grid {
@@ -183,5 +251,26 @@
 
   .news-card.featured {
     grid-column: span 1;
+  }
+
+  .news__wrapper {
+    margin-top: 4rem;
+  }
+
+  .pagination {
+    gap: 8px;
+    margin: 40px auto 20px;
+  }
+
+  .pagination-btn {
+    min-width: 40px;
+    height: 40px;
+    padding: 0 14px;
+    font-size: 14px;
+  }
+
+  .pagination-btn:first-child,
+  .pagination-btn:last-child {
+    padding: 0 16px;
   }
 }
