@@ -573,6 +573,14 @@ class NewsArticle(ImageOptimizeMixin, models.Model):
     meta_title = models.CharField(max_length=200, blank=True)
     meta_description = models.CharField(max_length=320, blank=True)
 
+    # External source
+    source_url = models.URLField(
+        max_length=500,
+        blank=True,
+        null=True,
+        help_text="Original source link for external news articles"
+    )
+
     # Optional fields
     tags = models.CharField(
         max_length=300, blank=True, help_text="Comma separated tags"
@@ -591,21 +599,45 @@ class NewsArticle(ImageOptimizeMixin, models.Model):
         ]
 
     def save(self, *args, **kwargs):
+
         if not self.slug:
-            self.slug = slugify(self.title)
+
+            base_slug = slugify(self.title)
+
+            slug = base_slug
+
+            counter = 1
+
+            while NewsArticle.objects.filter(
+                slug=slug
+            ).exclude(pk=self.pk).exists():
+
+                slug = f"{base_slug}-{counter}"
+
+                counter += 1
+
+            self.slug = slug
 
         # Auto-fill meta if empty
+
         if not self.meta_title:
             self.meta_title = self.title
+
         if not self.meta_description:
             self.meta_description = self.excerpt[:320]
 
         if self.featured_image:
-            self.optimize_image(self.featured_image)
+            self.optimize_image(
+                self.featured_image
+            )
 
         super().save(*args, **kwargs)
 
     def get_absolute_url(self):
+
+        if self.source_url:
+            return self.source_url
+
         return reverse(
             "news_detail",
             kwargs={"slug": self.slug}

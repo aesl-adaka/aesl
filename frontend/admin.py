@@ -552,6 +552,7 @@ class NewsArticleAdmin(admin.ModelAdmin):
         "category_link",
         "is_published",
         "publish_date",
+        "source_url",
         "author",
         "is_featured",
         "views_count",
@@ -578,6 +579,7 @@ class NewsArticleAdmin(admin.ModelAdmin):
                     "title",
                     "slug",
                     "category",
+                    "source_url",
                     "author",
                     "featured_image",
                 )

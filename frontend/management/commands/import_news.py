@@ -26,23 +26,39 @@ class Command(BaseCommand):
         json_file = options["file"]
 
         if not os.path.exists(json_file):
+
             self.stdout.write(
                 self.style.ERROR(
                     f"File not found: {json_file}"
                 )
             )
+
             return
 
+        # ---------------------------------
         # Load JSON
-        with open(json_file, "r", encoding="utf-8") as f:
+        # ---------------------------------
+
+        with open(
+            json_file,
+            "r",
+            encoding="utf-8"
+        ) as f:
+
             articles = json.load(f)
 
+        # ---------------------------------
         # Default category
+        # ---------------------------------
+
         category, created = Category.objects.get_or_create(
             name="AESL News"
         )
 
+        # ---------------------------------
         # Default author
+        # ---------------------------------
+
         User = get_user_model()
 
         author = User.objects.first()
@@ -51,144 +67,233 @@ class Command(BaseCommand):
         skipped = 0
         skipped_no_image = 0
 
+        # ---------------------------------
+        # Loop through articles
+        # ---------------------------------
+
         for item in articles:
 
             title = item.get("title")
 
             if not title:
+
                 skipped += 1
+                continue
+
+            source_url = item.get(
+                "source_url"
+            )
+
+            # ---------------------------------
+            # Skip duplicate source
+            # ---------------------------------
+
+            if source_url and NewsArticle.objects.filter(
+                source_url=source_url
+            ).exists():
+
+                skipped += 1
+
+                self.stdout.write(
+
+                    self.style.WARNING(
+                        f"Skipped duplicate: {title}"
+                    )
+
+                )
+
                 continue
 
             # ---------------------------------
             # Skip articles without images
             # ---------------------------------
 
-            image_path = item.get("image")
+            image_path = item.get(
+                "image"
+            )
 
             if not image_path:
 
                 skipped_no_image += 1
 
                 self.stdout.write(
+
                     self.style.WARNING(
                         f"Skipped (No image): {title}"
                     )
+
                 )
 
                 continue
 
             # ---------------------------------
-            # Prevent duplicate uploads
+            # Excerpt
             # ---------------------------------
 
-            if NewsArticle.objects.filter(
-                title=title
-            ).exists():
-
-                skipped += 1
-
-                self.stdout.write(
-                    self.style.WARNING(
-                        f"Skipped duplicate: {title}"
-                    )
-                )
-
-                continue
-
-            # ---------------------------------
-            # Use JSON excerpt
-            # ---------------------------------
-
-            excerpt = item.get("excerpt")
+            excerpt = item.get(
+                "excerpt"
+            )
 
             if not excerpt:
 
-                # fallback if excerpt missing
                 excerpt = (
-                    item.get("content", "")[:300]
+                    item.get(
+                        "content",
+                        ""
+                    )[:300]
                 )
 
+            # ---------------------------------
+            # Content
+            # ---------------------------------
+
             content = self.clean_content(
-                item.get("content", "")
+
+                item.get(
+                    "content",
+                    ""
+                )
+
             )
+
+            # ---------------------------------
+            # Create article object
+            # ---------------------------------
 
             article = NewsArticle(
 
                 title=title,
 
+
                 excerpt=excerpt,
+
 
                 content=content,
 
+
                 category=category,
+
 
                 author=author,
 
+
                 is_published=True,
 
-                tags="AESL, Architecture, Engineering, Ghana",
 
-                meta_title=title,
+                source_url=source_url,
 
-                meta_description=excerpt[:320]
+
+                tags=item.get(
+
+                    "tags",
+                    "AESL, Architecture, Engineering, Ghana"
+
+                ),
+
+
+                meta_title=item.get(
+
+                    "meta_title",
+                    title
+
+                ),
+
+
+                meta_description=item.get(
+
+                    "meta_description",
+                    excerpt[:320]
+
+                )
 
             )
 
             # ---------------------------------
-            # Upload image
+            # Image upload
             # ---------------------------------
 
             image_full_path = os.path.join(
+
                 "/home/seer/aesl-git",
+
                 "import_data",
+
                 "images",
+
                 os.path.basename(image_path)
+
             )
 
             if os.path.exists(image_full_path):
 
                 with open(
+
                     image_full_path,
+
                     "rb"
+
                 ) as img:
 
                     article.featured_image.save(
 
                         os.path.basename(
+
                             image_full_path
+
                         ),
+
 
                         File(img),
 
+
                         save=False
+
                     )
 
             else:
 
                 self.stdout.write(
+
                     self.style.WARNING(
+
                         f"Image missing: {image_full_path}"
+
                     )
+
                 )
 
                 skipped += 1
+
                 continue
 
+            # ---------------------------------
             # Save article
+            # ---------------------------------
+
             article.save()
 
             imported += 1
 
             self.stdout.write(
+
                 self.style.SUCCESS(
+
                     f"Imported: {title}"
+
                 )
+
             )
+
+        # ---------------------------------
+        # Summary
+        # ---------------------------------
 
         self.stdout.write("\n")
 
         self.stdout.write(
+
             self.style.SUCCESS(
+
                 f"""
 Finished
 
@@ -196,7 +301,9 @@ Imported: {imported}
 Skipped duplicates/errors: {skipped}
 Skipped no image: {skipped_no_image}
 """
+
             )
+
         )
 
     def clean_content(self, content):
@@ -205,15 +312,18 @@ Skipped no image: {skipped_no_image}
         for CKEditor
         """
 
-        paragraphs = content.split("\n\n")
+        paragraphs = content.split(
+            "\n\n"
+        )
 
         html = ""
 
-        for p in paragraphs:
+        for paragraph in paragraphs:
 
-            if p.strip():
+            if paragraph.strip():
 
-                html += f"<p>{p.strip()}</p>"
+                html += (
+                    f"<p>{paragraph.strip()}</p>"
+                )
 
         return html
-

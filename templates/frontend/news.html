@@ -44,9 +44,15 @@
                 </div>
 
                 <h3 class="news-card-title">
-                  <a href="{{ featured_article.get_absolute_url }}">
+                  {% if article.source_url %}
+                      <a href="{{ article.source_url }}" target="_blank" rel="noopener noreferrer">
                     {{ featured_article.title }}
-                    </a>
+                      </a>
+                  {% else %}
+                      <a href="{{ article.get_absolute_url }}">
+                    {{ featured_article.title }}
+                      </a>
+                  {% endif %}
                 </h3>
 
                 <p class="news-card-excerpt">
@@ -69,11 +75,16 @@
                     </div>
                     {% endcomment %}
 
-                    <a href="{{ featured_article.get_absolute_url }}"
-                       class="news-card-link">
-                        Read Full Story →
-                    </a>
 
+                  {% if article.source_url %}
+                      <a class="news-card-link" href="{{ article.source_url }}" target="_blank" rel="noopener noreferrer">
+                          Read Article →
+                      </a>
+                  {% else %}
+                      <a class="news-card-link" href="{{ article.get_absolute_url }}">
+                        Read Full Story →
+                      </a>
+                  {% endif %}
                 </div>
 
             </div>
@@ -114,9 +125,15 @@
                 </div>
 
                 <h3 class="news-card-title">
-                  <a href="{{ article.get_absolute_url }}">
+                  {% if article.source_url %}
+                      <a href="{{ article.source_url }}" target="_blank" rel="noopener noreferrer">
                     {{ article.title }}
-                  </a>
+                      </a>
+                  {% else %}
+                      <a href="{{ article.get_absolute_url }}">
+                    {{ article.title }}
+                      </a>
+                  {% endif %}
                 </h3>
 
                 <p class="news-card-excerpt">
@@ -138,10 +155,15 @@
                       {% endcomment %}
 
                     </div>
-                  <a href="{{ article.get_absolute_url }}"
-                    class="news-card-link">
-                      Read More →
-                  </a>
+                  {% if article.source_url %}
+                      <a class="news-card-link" href="{{ article.source_url }}" target="_blank" rel="noopener noreferrer">
+                          Read Article →
+                      </a>
+                  {% else %}
+                      <a class="news-card-link" href="{{ article.get_absolute_url }}">
+                          Read More →
+                      </a>
+                  {% endif %}
 
                 </div>
 
