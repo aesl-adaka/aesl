@@ -7,10 +7,10 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("frontend.urls")),
     path("api/images/", include("media_handle.urls")),
-    # path(
-    #     "api/",
-    #     include("frontend.api_urls")
-    # ),
+    path(
+        "api/",
+        include("frontend.api_urls")
+    ),
     path("ckeditor5/", include("django_ckeditor_5.urls")),
     path("__reload__/", include("django_browser_reload.urls")),
 ]
