@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
 
@@ -11,10 +12,10 @@
         padding: 80px 24px;
         background:
             linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)),
-            url("{% static 'images/architecture-bg.jpg' %}") center/cover no-repeat;
-        position: relative;
-        overflow: hidden;
-    }
+            url("{% static 'img/404-1.jpg' %}") center/cover no-repeat;
+                position: relative;
+                overflow: hidden;
+            }
 
     .error-page::before {
         content: "";
@@ -169,20 +170,15 @@
         <h1>Page Not Found</h1>
 
         <p>
-            It looks like this page is no longer part of the blueprint.
-            The page you are looking for may have been moved, redesigned,
-            or may no longer exist.
+        The page you are looking for could not be found.
+          Please check the address or return to our homepage to continue exploring our work.
         </p>
 
         <div class="error-actions">
-
             <a href="{% url 'home' %}" class="error-btn error-btn-primary">
                 Back to Home
             </a>
 
-            <a href="{% url 'contact' %}" class="error-btn error-btn-secondary">
-                Contact Us
-            </a>
 
         </div>
 

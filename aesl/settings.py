@@ -14,7 +14,8 @@ SECURE_CONTENT_TYPE_NOSNIFF = True
 X_FRAME_OPTIONS = "DENY"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config("DEBUG", default=False, cast=bool)
+# DEBUG = config("DEBUG", default=False, cast=bool)
+DEBUG = False
 
 ALLOWED_HOSTS = [
     "127.0.0.1",
@@ -62,8 +63,8 @@ CKEDITOR_CONFIGS = {
 
 # Only add this in development to avoid serving static in runserver when
 # DEBUG=True
-if DEBUG:
-    INSTALLED_APPS.insert(0, "whitenoise.runserver_nostatic")
+# if DEBUG:
+#     INSTALLED_APPS.insert(0, "whitenoise.runserver_nostatic")
 
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
@@ -116,24 +117,24 @@ CACHES = {
 
 
 # Database (SQLite is fine for small apps; consider PostgreSQL for production)
-if DEBUG:
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.sqlite3",
-            "NAME": BASE_DIR / "db.sqlite3",
-        }
+# if DEBUG:
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
     }
-else:
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.postgresql",
-            "NAME": "aesl_db",
-            "USER": "aesl_user",
-            "PASSWORD": "christian@seer.com",
-            "HOST": "127.0.0.1",
-            "PORT": "5432",
-        }
-    }
+}
+# else:
+#     DATABASES = {
+#         "default": {
+#             "ENGINE": "django.db.backends.postgresql",
+#             "NAME": "aesl_db",
+#             "USER": "aesl_user",
+#             "PASSWORD": "christian@seer.com",
+#             "HOST": "127.0.0.1",
+#             "PORT": "5432",
+#         }
+#     }
 
 
 # Password validation
@@ -262,7 +263,7 @@ CKEDITOR_5_CONFIGS = {
 }
 
 # Security (good choices – Vercel terminates SSL so these are safe)
-SECURE_SSL_REDIRECT = not DEBUG  # Only in production
-SESSION_COOKIE_SECURE = not DEBUG
-CSRF_COOKIE_SECURE = not DEBUG
-SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")  # Recommended for Vercel
+# SECURE_SSL_REDIRECT = not DEBUG  # Only in production
+# SESSION_COOKIE_SECURE = not DEBUG
+# CSRF_COOKIE_SECURE = not DEBUG
+# SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")  # Recommended for Vercel
