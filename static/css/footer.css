@@ -11,9 +11,15 @@
     place-items: start;
 }
 
-.footer__nav svg {
-    font-size: 1rem;
+.footer__nav svg, .footer__nav i  {
+    width: 1rem;
 }
+
+.footer__nav i {
+    font-size: 1rem;
+    transform: rotate(-90deg);
+}
+
 
 .footer__nav h5 {
     font-size: 1.4rem;
