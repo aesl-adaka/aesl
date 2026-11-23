@@ -1,6 +1,8 @@
 from django.contrib import admin
 from django.utils.html import format_html
 
+from .admin_site import register
+
 from .models import (
     BoardMember,
     Branch,
@@ -34,7 +36,7 @@ class ProjectLocationInline(admin.TabularInline):
     extra = 1
 
 
-@admin.register(ProjectLocation)
+@register(ProjectLocation)
 class ProjectLocationAdmin(admin.ModelAdmin):
     list_display = (
         "project",
@@ -109,7 +111,7 @@ class StaffInline(admin.TabularInline):
 # ==================================================
 # PROJECT ADMIN – UPDATED WITH SLUG SUPPORT
 # ==================================================
-@admin.register(Project)
+@register(Project)
 class ProjectAdmin(admin.ModelAdmin):
     list_display = (
         "title",
@@ -215,7 +217,7 @@ class ProjectAdmin(admin.ModelAdmin):
 # ==================================================
 # SUPPORTING ADMINS (unchanged except where noted)
 # ==================================================
-@admin.register(ProjectAward)
+@register(ProjectAward)
 class ProjectAwardAdmin(admin.ModelAdmin):
     list_display = ("year", "award_name", "awarded_by", "project")
     list_filter = ("year",)
@@ -223,41 +225,41 @@ class ProjectAwardAdmin(admin.ModelAdmin):
     ordering = ("-year",)
 
 
-@admin.register(ProjectContractor)
+@register(ProjectContractor)
 class ProjectContractorAdmin(admin.ModelAdmin):
     list_display = ("project", "role", "company_name")
     list_filter = ("role",)
     search_fields = ("company_name", "project__title")
 
 
-@admin.register(ContractorRole)
+@register(ContractorRole)
 class ContractorRoleAdmin(admin.ModelAdmin):
     search_fields = ("name",)
 
 
-@admin.register(ProjectCategory)
+@register(ProjectCategory)
 class ProjectCategoryAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("name",)}
     search_fields = ("name",)
 
 
-@admin.register(ProjectLeader)
+@register(ProjectLeader)
 class ProjectLeaderAdmin(admin.ModelAdmin):
     search_fields = ("full_name",)
 
 
-@admin.register(ProjectTeamMember)
+@register(ProjectTeamMember)
 class ProjectTeamMemberAdmin(admin.ModelAdmin):
     search_fields = ("full_name",)
 
 
-@admin.register(MainCategory)
+@register(MainCategory)
 class MainCategoryAdmin(admin.ModelAdmin):
     list_display = ("name",)
     search_fields = ("name",)
 
 
-@admin.register(SubCategory)
+@register(SubCategory)
 class SubCategoryAdmin(admin.ModelAdmin):
     list_display = ("name", "main_category")
     list_filter = ("main_category",)
@@ -265,7 +267,7 @@ class SubCategoryAdmin(admin.ModelAdmin):
     inlines = [StaffInline]
 
 
-@admin.register(Staff)
+@register(Staff)
 class StaffAdmin(admin.ModelAdmin):
     list_display = (
         "name",
@@ -278,7 +280,7 @@ class StaffAdmin(admin.ModelAdmin):
     search_fields = ("name", "email", "position", "profession")
 
 
-@admin.register(People)
+@register(People)
 class PeopleAdmin(admin.ModelAdmin):
     list_display = ("name", "profession")
     search_fields = ("name", "profession")
@@ -306,7 +308,7 @@ class PublicationsInline(admin.TabularInline):
     publication_image_preview.short_description = "Preview"
 
 
-@admin.register(Publications)
+@register(Publications)
 class PublicationsAdmin(admin.ModelAdmin):
     list_display = (
         "thumbnail_preview",
@@ -363,7 +365,7 @@ class PublicationsAdmin(admin.ModelAdmin):
         return "No image uploaded"
 
 
-@admin.register(BoardMember)
+@register(BoardMember)
 class BoardMemberAdmin(admin.ModelAdmin):
     list_display = (
         "thumbnail_preview",
@@ -427,7 +429,7 @@ class BoardMemberAdmin(admin.ModelAdmin):
     thumbnail_large.short_description = "Photo Preview"
 
 
-@admin.register(ProjectGalleryImage)
+@register(ProjectGalleryImage)
 class ProjectGalleryImageAdmin(admin.ModelAdmin):
     list_display = [
         "thumbnail",
@@ -522,7 +524,7 @@ class NewsImageInline(admin.TabularInline):
     preview.short_description = "Preview"
 
 
-@admin.register(Category)
+@register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ("name", "slug", "article_count", "is_active", "created_at")
     list_filter = ("is_active",)
@@ -545,7 +547,7 @@ class CategoryAdmin(admin.ModelAdmin):
     article_count.short_description = "Articles"
 
 
-@admin.register(NewsArticle)
+@register(NewsArticle)
 class NewsArticleAdmin(admin.ModelAdmin):
     list_display = (
         "title",
@@ -643,7 +645,7 @@ class NewsArticleAdmin(admin.ModelAdmin):
         queryset.update(is_published=False)
 
 
-@admin.register(NewsImage)
+@register(NewsImage)
 class NewsImageAdmin(admin.ModelAdmin):
     list_display = ("article_title", "preview", "caption", "order")
     list_filter = ("article__category",)
@@ -666,7 +668,7 @@ class NewsImageAdmin(admin.ModelAdmin):
     preview.short_description = "Preview"
 
 
-@admin.register(ExternalAuthor)
+@register(ExternalAuthor)
 class ExternalAuthorAdmin(admin.ModelAdmin):
     list_display = ("name", "title", "preview_photo")
     search_fields = ("name", "title", "bio")
@@ -683,7 +685,7 @@ class ExternalAuthorAdmin(admin.ModelAdmin):
     preview_photo.short_description = "Photo"
 
 
-@admin.register(Branch)
+@register(Branch)
 class BranchAdmin(admin.ModelAdmin):
     list_display = (
         "name",
@@ -743,7 +745,7 @@ class BranchAdmin(admin.ModelAdmin):
         return str(obj.longitude)
 
 
-@admin.register(Alumni)
+@register(Alumni)
 class Alumni(admin.ModelAdmin):
     list_display = (
         "thumbnail_preview",
